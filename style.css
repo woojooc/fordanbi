@@ -109,6 +109,29 @@ a {
   background: var(--cream-dark);
 }
 
+.hero-image {
+  position: relative;
+  overflow: hidden;
+
+  border-radius: 30px;
+  box-shadow: var(--shadow);
+
+  aspect-ratio: 4 / 5;
+}
+
+.hero-photo {
+  position: absolute;
+  inset: 0;
+
+  background-image: url("assets/danbi-main.jpg");
+  background-size: cover;
+
+  /* ⭐ 이 값을 조절 */
+  background-position: 75% center;
+
+  background-repeat: no-repeat;
+}
+
 .hero-badge {
   position: absolute;
   left: 20px;
