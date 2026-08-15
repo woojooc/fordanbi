@@ -701,6 +701,7 @@ function changeLanguage(language) {
     language
   );
 
+  updateFundLanguage(lang);
 }
 
 
@@ -1090,12 +1091,13 @@ function updateCurrency(language) {
   }
 
 
-  /* 후원 목표 */
+  /* =========================================
+     1. 후원 목표금액
+  ========================================= */
 
-  const goalElements =
-    document.querySelectorAll(
-      ".fund-card .fund-top strong, .fund-number > span:last-child strong"
-    );
+  const goalElements = document.querySelectorAll(
+    ".fund-top strong"
+  );
 
   goalElements.forEach(function(element) {
 
@@ -1104,7 +1106,11 @@ function updateCurrency(language) {
   });
 
 
-  /* 현재 후원금 */
+/* =========================================
+     2. 현재 후원금
+     
+     반드시 0으로 시작
+  ========================================= */
 
   const currentElement =
     document.getElementById("currentAmount");
@@ -1116,11 +1122,30 @@ function updateCurrency(language) {
 
   }
 
+/* =========================================
+     3. 아래쪽 '목표' 금액
+  ========================================= */
 
-  /* 치료비 항목 */
+  const targetElement =
+    document.querySelector(
+      ".fund-number > span:last-child strong"
+    );
+
+  if (targetElement) {
+
+    targetElement.textContent =
+      currency.goal;
+
+  }
+
+ /* =========================================
+     4. 치료비 항목
+  ========================================= */
 
   const costElements =
-    document.querySelectorAll(".cost-grid strong");
+    document.querySelectorAll(
+      ".cost-grid strong"
+    );
 
   costElements.forEach(function(element, index) {
 
@@ -1168,3 +1193,89 @@ const initialLanguage =
   localStorage.getItem("danbiLanguage") || "ko";
 
 updateCurrency(initialLanguage);
+
+/* =========================================
+   후원금 목표 / 현재 후원금 언어 변경
+========================================= */
+
+const fundLanguageText = {
+
+  ko: {
+    current: "현재 후원금",
+    goal: "목표",
+    currentAmount: "0원",
+    goalAmount: "10,000,000원"
+  },
+
+  en: {
+    current: "Current Donations",
+    goal: "Goal",
+    currentAmount: "$0",
+    goalAmount: "$7,300"
+  },
+
+  fr: {
+    current: "Dons actuels",
+    goal: "Objectif",
+    currentAmount: "0 €",
+    goalAmount: "6 250 €"
+  }
+
+};
+
+
+function updateFundLanguage(language) {
+
+  const text = fundLanguageText[language];
+
+  if (!text) {
+    return;
+  }
+
+
+  /* 현재 후원금 */
+
+  const currentLabel =
+    document.querySelector(
+      '[data-i18n="currentDonationLabel"]'
+    );
+
+  if (currentLabel) {
+    currentLabel.textContent = text.current;
+  }
+
+
+  /* 목표 */
+
+  const goalLabel =
+    document.querySelector(
+      '[data-i18n="fundGoalLabel"]'
+    );
+
+  if (goalLabel) {
+    goalLabel.textContent = text.goal;
+  }
+
+
+  /* 현재 금액 */
+
+  const currentAmount =
+    document.getElementById("currentAmount");
+
+  if (currentAmount) {
+    currentAmount.textContent =
+      text.currentAmount;
+  }
+
+
+  /* 목표 금액 */
+
+  const goalAmount =
+    document.getElementById("fundGoalAmount");
+
+  if (goalAmount) {
+    goalAmount.textContent =
+      text.goalAmount;
+  }
+
+}
