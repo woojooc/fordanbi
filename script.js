@@ -232,6 +232,51 @@ const translations = {
 
     footerNotice:
       "본 페이지의 치료비는 예상 금액이며 실제 치료비와 다를 수 있습니다."
+,
+    medicalJourney:
+  "MEDICAL JOURNEY",
+
+medicalJourneyTitle:
+  "단비의 병원 치료 경과",
+
+medicalJourneyGuide:
+  "← 사진을 좌우로 넘겨보세요 →",
+
+treatmentRecord1Label:
+  "치료기록 01",
+
+treatmentRecord1Title:
+  "첫 번째 증상발생 기록",
+
+treatmentRecord1Text:
+  "아랫배쪽 종양이 점점 커짐",
+
+treatmentRecord2Label:
+  "치료기록 02",
+
+treatmentRecord2Title:
+  "두 번째 치료 기록",
+
+treatmentRecord2Text:
+  "종양과 함께 자궁 및 젖꼭지들을 모두 제거하는 수술",
+
+treatmentRecord3Label:
+  "호스피스기록 01",
+
+treatmentRecord3Title:
+  "첫 번째 호스피스 기록",
+
+treatmentRecord3Text:
+  "새로운 종양이 추가로 생겼으며 더 커짐. 해당 사항으로 다리 부종이 생기고 피부가 짓무르게 됨. 가바펜틴 진통제 복용",
+
+treatmentRecord4Label:
+  "호스피스기록 02",
+
+treatmentRecord4Title:
+  "두 번째 호스피스 기록",
+
+treatmentRecord4Text:
+  "숨을 헐떡이며 누워 지냄. 가바펜틴 진통제 복용",
 
   },
 
@@ -438,8 +483,51 @@ const translations = {
       "A fundraising page supporting Danbi's treatment for osteosarcoma.",
 
     footerNotice:
-      "Treatment costs shown on this page are estimates and may differ from actual expenses."
+      "Treatment costs shown on this page are estimates and may differ from actual expenses.",
+    medicalJourney:
+  "MEDICAL JOURNEY",
 
+medicalJourneyTitle:
+  "Danbi's Medical Journey",
+
+medicalJourneyGuide:
+  "← Swipe left or right to view photos →",
+
+treatmentRecord1Label:
+  "Treatment Record 01",
+
+treatmentRecord1Title:
+  "First Symptom Record",
+
+treatmentRecord1Text:
+  "The tumor in the lower abdomen gradually became larger.",
+
+treatmentRecord2Label:
+  "Treatment Record 02",
+
+treatmentRecord2Title:
+  "Second Treatment Record",
+
+treatmentRecord2Text:
+  "Surgery was performed to remove the tumor along with the uterus and mammary glands.",
+
+treatmentRecord3Label:
+  "Hospice Record 01",
+
+treatmentRecord3Title:
+  "First Hospice Record",
+
+treatmentRecord3Text:
+  "A new tumor developed and continued to grow. This caused swelling in the leg and severe skin irritation. Gabapentin was administered for pain relief.",
+
+treatmentRecord4Label:
+  "Hospice Record 02",
+
+treatmentRecord4Title:
+  "Second Hospice Record",
+
+treatmentRecord4Text:
+  "Danbi spent most of her time lying down and breathing heavily. Gabapentin was administered for pain relief.",
   },
 
 
@@ -645,8 +733,52 @@ const translations = {
       "Page de soutien destinée aux soins de Danbi, atteinte d'un ostéosarcome.",
 
     footerNotice:
-      "Les frais indiqués sur cette page sont estimatifs et peuvent différer des dépenses réelles."
+      "Les frais indiqués sur cette page sont estimatifs et peuvent différer des dépenses réelles.",
 
+    medicalJourney:
+  "PARCOURS MÉDICAL",
+
+medicalJourneyTitle:
+  "Le parcours médical de Danbi",
+
+medicalJourneyGuide:
+  "← Faites glisser les photos vers la gauche ou la droite →",
+
+treatmentRecord1Label:
+  "Dossier médical 01",
+
+treatmentRecord1Title:
+  "Premiers symptômes",
+
+treatmentRecord1Text:
+  "La tumeur située dans le bas de l'abdomen a progressivement grossi.",
+
+treatmentRecord2Label:
+  "Dossier médical 02",
+
+treatmentRecord2Title:
+  "Deuxième dossier de soins",
+
+treatmentRecord2Text:
+  "Une intervention chirurgicale a été réalisée afin de retirer la tumeur ainsi que l'utérus et les glandes mammaires.",
+
+treatmentRecord3Label:
+  "Dossier de soins palliatifs 01",
+
+treatmentRecord3Title:
+  "Premier dossier de soins palliatifs",
+
+treatmentRecord3Text:
+  "Une nouvelle tumeur est apparue et a continué à grossir. Cela a provoqué un gonflement de la patte et une importante irritation de la peau. De la gabapentine a été administrée pour soulager la douleur.",
+
+treatmentRecord4Label:
+  "Dossier de soins palliatifs 02",
+
+treatmentRecord4Title:
+  "Deuxième dossier de soins palliatifs",
+
+treatmentRecord4Text:
+  "Danbi restait principalement allongée et respirait difficilement. De la gabapentine a été administrée pour soulager la douleur.",
   }
 
 };
@@ -785,8 +917,9 @@ function changeLanguage(language) {
     .querySelectorAll("[data-i18n]")
     .forEach(function (element) {
 
-      const key =
-        element.dataset.i18n;
+      /*const key =
+        element.dataset.i18n;*/
+      const key = element.getAttribute("data-i18n");  
 
       if (selected[key] !== undefined) {
 
@@ -812,7 +945,12 @@ function changeLanguage(language) {
       ) {
 
         button.classList.add("active");
+      }
 
+      if (
+        button.getAttribute("data-lang") === language
+      ) {
+        button.classList.add("active");
       }
 
     });
@@ -829,6 +967,17 @@ function changeLanguage(language) {
   /* 화폐 변경 */
 
   updateCurrency(language);
+
+
+/* ==============================
+     통화 변경
+  ============================== */
+
+  if (typeof updateCurrency === "function") {
+
+    updateCurrency(language);
+
+  }
 
 }
 
@@ -1241,3 +1390,4 @@ changeLanguage(
 ========================================================= */
 
 updateFundProgress(); 
+
