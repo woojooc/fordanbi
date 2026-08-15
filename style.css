@@ -105,7 +105,7 @@ a {
 .hero-image img {
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: 70% 50%;
+  object-position: 25% 50%;
   background: var(--cream-dark);
 }
 
@@ -127,7 +127,7 @@ a {
   background-size: cover;
 
   /* ⭐ 이 값을 조절 */
-  background-position: 40% center;
+  background-position: 25% center;
 
   background-repeat: no-repeat;
 }
@@ -666,7 +666,7 @@ footer small {
   .hero-image img {
     aspect-ratio: 4 / 4.5;
     object-fit: cover;
-    object-position: 60% 50%;
+    object-position: 25% 50%;
   }
 
   .hero-content {
