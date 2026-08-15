@@ -653,35 +653,152 @@ const translations = {
 
 
 /* =========================================================
-   3. CHANGE LANGUAGE
+   3. CURRENCY SETTINGS
+========================================================= */
+
+const currencySettings = {
+
+  /* 🇰🇷 한국어 */
+
+  ko: {
+
+    symbol: "원",
+
+    goal: "10,000,000원",
+
+    current: "0원",
+
+    costs: [
+      "50~150만원",
+      "150~300만원",
+      "150~300만원",
+      "50~150만원",
+      "50~150만원",
+      "100~200만원"
+    ]
+
+  },
+
+
+  /* 🇺🇸 English */
+
+  en: {
+
+    symbol: "$",
+
+    goal: "$7,300",
+
+    current: "$0",
+
+    costs: [
+      "$365~$1,095",
+      "$1,095~$2,190",
+      "$1,095~$2,190",
+      "$365~$1,095",
+      "$365~$1,095",
+      "$730~$1,460"
+    ]
+
+  },
+
+
+  /* 🇫🇷 Français */
+
+  fr: {
+
+    symbol: "€",
+
+    goal: "6 250 €",
+
+    current: "0 €",
+
+    costs: [
+      "310~940 €",
+      "940~1 875 €",
+      "940~1 875 €",
+      "310~940 €",
+      "310~940 €",
+      "625~1 250 €"
+    ]
+
+  }
+
+};
+
+
+/* =========================================================
+   4. FUND LABELS
+========================================================= */
+
+const fundLabels = {
+
+  ko: {
+
+    current: "현재 후원금",
+
+    goal: "목표"
+
+  },
+
+  en: {
+
+    current: "Current Donations",
+
+    goal: "Goal"
+
+  },
+
+  fr: {
+
+    current: "Dons actuels",
+
+    goal: "Objectif"
+
+  }
+
+};
+
+
+/* =========================================================
+   5. CHANGE LANGUAGE
 ========================================================= */
 
 function changeLanguage(language) {
 
-  const selected = translations[language];
+  const selected =
+    translations[language];
 
   if (!selected) {
     return;
   }
 
 
-  document.documentElement.lang = language;
+  /* HTML 언어 설정 */
 
+  document.documentElement.lang =
+    language;
+
+
+  /* 일반 번역 */
 
   document
     .querySelectorAll("[data-i18n]")
     .forEach(function (element) {
 
-      const key = element.dataset.i18n;
+      const key =
+        element.dataset.i18n;
 
       if (selected[key] !== undefined) {
 
-        element.innerHTML = selected[key];
+        element.innerHTML =
+          selected[key];
 
       }
 
     });
 
+
+  /* 언어 버튼 active */
 
   document
     .querySelectorAll(".language-button")
@@ -689,24 +806,167 @@ function changeLanguage(language) {
 
       button.classList.remove("active");
 
-      if (button.dataset.lang === language) {
+      if (
+        button.dataset.lang ===
+        language
+      ) {
+
         button.classList.add("active");
+
       }
 
     });
 
+
+  /* 선택 언어 저장 */
 
   localStorage.setItem(
     "danbiLanguage",
     language
   );
 
-  updateFundLanguage(lang);
+
+  /* 화폐 변경 */
+
+  updateCurrency(language);
+
 }
 
 
 /* =========================================================
-   4. LANGUAGE BUTTONS
+   6. CURRENCY UPDATE
+========================================================= */
+
+function updateCurrency(language) {
+
+  const currency =
+    currencySettings[language];
+
+  const labels =
+    fundLabels[language];
+
+
+  if (!currency || !labels) {
+    return;
+  }
+
+
+  /* =========================================
+     현재 후원금 금액
+  ========================================= */
+
+  const currentAmount =
+    document.getElementById(
+      "currentAmount"
+    );
+
+  if (currentAmount) {
+
+    currentAmount.textContent =
+      currency.current;
+
+  }
+
+
+  /* =========================================
+     상단 목표 금액
+  ========================================= */
+
+  const goalAmount =
+    document.getElementById(
+      "fundGoalAmount"
+    );
+
+  if (goalAmount) {
+
+    goalAmount.textContent =
+      currency.goal;
+
+  }
+
+
+  /* =========================================
+     아래쪽 목표 금액
+  ========================================= */
+
+  const targetElement =
+    document.querySelector(
+      ".fund-number > span:last-child strong"
+    );
+
+  if (targetElement) {
+
+    targetElement.textContent =
+      currency.goal;
+
+  }
+
+
+  /* =========================================
+     현재 후원금 라벨
+  ========================================= */
+
+  const currentLabel =
+    document.querySelector(
+      '[data-i18n="currentDonation"]'
+    );
+
+  if (currentLabel) {
+
+    currentLabel.textContent =
+      labels.current;
+
+  }
+
+
+  /* =========================================
+     목표 라벨
+  ========================================= */
+
+  const goalLabel =
+    document.querySelector(
+      '[data-i18n="goalText"]'
+    );
+
+  if (goalLabel) {
+
+    goalLabel.textContent =
+      labels.goal;
+
+  }
+
+
+  /* =========================================
+     치료비 금액
+     
+     항목 이름은 translations가 담당
+     금액만 currencySettings가 담당
+  ========================================= */
+
+  const costElements =
+    document.querySelectorAll(
+      ".cost-grid strong"
+    );
+
+
+  costElements.forEach(
+    function (element, index) {
+
+      if (currency.costs[index]) {
+
+        element.textContent =
+          currency.costs[index];
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   7. LANGUAGE BUTTONS
 ========================================================= */
 
 document
@@ -728,67 +988,186 @@ document
 
 
 /* =========================================================
-   5. LOAD SAVED LANGUAGE
+   8. DONATION PROGRESS
 ========================================================= */
 
-const savedLanguage =
-  localStorage.getItem("danbiLanguage");
+/*
+   실제 현재 모금액
 
-if (
-  savedLanguage &&
-  translations[savedLanguage]
-) {
+   예:
+   500000
+   = 50만원
 
-  changeLanguage(savedLanguage);
+   현재는 0원
+*/
+
+const CURRENT_AMOUNT = 0;
+
+
+/*
+   한국 원화 기준 목표금액
+
+   10,000,000원
+*/
+
+const FUND_TARGET = 10000000;
+
+
+function updateFundProgress() {
+
+  const percentElement =
+    document.getElementById(
+      "percent"
+    );
+
+  const progressElement =
+    document.getElementById(
+      "progressBar"
+    );
+
+
+  if (
+    !percentElement ||
+    !progressElement
+  ) {
+
+    return;
+
+  }
+
+
+  const percentage =
+    Math.min(
+      100,
+      Math.round(
+        (
+          CURRENT_AMOUNT /
+          FUND_TARGET
+        ) * 100
+      )
+    );
+
+
+  percentElement.textContent =
+    percentage + "%";
+
+
+  progressElement.style.width =
+    percentage + "%";
 
 }
 
 
 /* =========================================================
-   6. ACCOUNT COPY
+   9. ACCOUNT COPY
 ========================================================= */
 
-const copyButton =
-  document.getElementById("copyAccount");
+const copyAccountButton =
+  document.getElementById(
+    "copyAccount"
+  );
 
 
-if (copyButton) {
+if (copyAccountButton) {
 
-  copyButton.addEventListener(
+  copyAccountButton.addEventListener(
     "click",
     async function () {
 
-      const account =
+      const accountNumber =
         "1002149842668";
 
 
       try {
 
         await navigator.clipboard.writeText(
-          account
+          accountNumber
         );
 
 
         const originalText =
-          copyButton.textContent;
+          copyAccountButton.textContent;
 
 
-        copyButton.textContent =
+        copyAccountButton.textContent =
           "복사되었습니다 ✓";
 
 
-        setTimeout(function () {
+        setTimeout(
+          function () {
 
-          copyButton.textContent =
-            originalText;
+            copyAccountButton.textContent =
+              originalText;
 
-        }, 1800);
+          },
+          2000
+        );
 
 
       } catch (error) {
 
-        alert(
-          "계좌번호: " + account
+        /* 오래된 브라우저 대응 */
+
+        const textArea =
+          document.createElement(
+            "textarea"
+          );
+
+
+        textArea.value =
+          accountNumber;
+
+
+        textArea.style.position =
+          "fixed";
+
+        textArea.style.left =
+          "-9999px";
+
+
+        document.body.appendChild(
+          textArea
+        );
+
+
+        textArea.focus();
+        textArea.select();
+
+
+        try {
+
+          document.execCommand(
+            "copy"
+          );
+
+
+          copyAccountButton.textContent =
+            "복사되었습니다 ✓";
+
+
+        } catch (err) {
+
+          alert(
+            "계좌번호: " +
+            accountNumber
+          );
+
+        }
+
+
+        document.body.removeChild(
+          textArea
+        );
+
+
+        setTimeout(
+          function () {
+
+            copyAccountButton.textContent =
+              "계좌번호 복사";
+
+          },
+          2000
         );
 
       }
@@ -800,11 +1179,13 @@ if (copyButton) {
 
 
 /* =========================================================
-   7. ONLINE PAYMENT BUTTON
+   10. ONLINE PAYMENT
 ========================================================= */
 
 const paymentButton =
-  document.getElementById("paymentButton");
+  document.getElementById(
+    "paymentButton"
+  );
 
 
 if (paymentButton) {
@@ -814,7 +1195,8 @@ if (paymentButton) {
     function () {
 
       alert(
-        "온라인 결제 시스템을 준비하고 있습니다.\n\n현재는 계좌이체를 이용해주세요."
+        "온라인 결제 시스템을 준비하고 있습니다.\n\n" +
+        "현재는 계좌이체를 이용해주세요."
       );
 
     }
@@ -824,458 +1206,38 @@ if (paymentButton) {
 
 
 /* =========================================================
-   8. DONATION PROGRESS
+   11. INITIAL LANGUAGE
 ========================================================= */
 
-/*
-  현재 후원금을 여기서 변경하면 됩니다.
-
-  예:
-  const currentDonationAmount = 500000;
-
-*/
-
-const currentDonationAmount = 0;
-
-const donationGoal = 10000000;
-
-
-const percentage =
-  Math.min(
-    (currentDonationAmount / donationGoal) * 100,
-    100
+const savedLanguage =
+  localStorage.getItem(
+    "danbiLanguage"
   );
 
-
-const progressBar =
-  document.getElementById("progressBar");
-
-const percent =
-  document.getElementById("percent");
-
-const currentAmount =
-  document.getElementById("currentAmount");
-
-
-if (progressBar) {
-
-  progressBar.style.width =
-    percentage + "%";
-
-}
-
-
-if (percent) {
-
-  percent.textContent =
-    Math.round(percentage) + "%";
-
-}
-
-
-if (currentAmount) {
-
-  currentAmount.textContent =
-    currentDonationAmount.toLocaleString("ko-KR") + "원";
-
-}
-
-// ==========================================
-// 단비 후원 페이지 설정
-// ==========================================
-
-const FUND_TARGET = 10000000;
-
-// 실제 현재 모금액을 입력하세요.
-const CURRENT_AMOUNT = 0;
-
-
-// ==========================================
-// 모금 현황
-// ==========================================
-
-function updateFund() {
-
-  const percentElement =
-    document.getElementById("percent");
-
-  const currentElement =
-    document.getElementById("currentAmount");
-
-  const progressElement =
-    document.getElementById("progressBar");
-
-  if (!percentElement ||
-      !currentElement ||
-      !progressElement) {
-    return;
-  }
-
-  const percentage =
-    Math.min(
-      100,
-      Math.round(
-        (CURRENT_AMOUNT / FUND_TARGET) * 100
-      )
-    );
-
-  percentElement.textContent =
-    `${percentage}%`;
-
-  currentElement.textContent =
-    `${CURRENT_AMOUNT.toLocaleString("ko-KR")}원`;
-
-  progressElement.style.width =
-    `${percentage}%`;
-}
-
-
-// ==========================================
-// 계좌번호 복사
-// ==========================================
-
-document
-  .getElementById("copyAccount")
-  ?.addEventListener("click", async () => {
-
-    // 실제 공개할 계좌번호를 입력하세요.
-    const accountNumber = "여기에 계좌번호 입력";
-
-    try {
-
-      await navigator.clipboard.writeText(
-        accountNumber
-      );
-
-      alert(
-        "후원 계좌번호가 복사되었습니다."
-      );
-
-    } catch (error) {
-
-      alert(
-        "계좌번호 복사에 실패했습니다."
-      );
-
-    }
-
-  });
-
-
-// ==========================================
-// 온라인 후원 버튼
-// ==========================================
-
-document
-  .getElementById("paymentButton")
-  ?.addEventListener("click", () => {
-
-    alert(
-      "온라인 결제 시스템을 준비하고 있습니다.\n\n" +
-      "결제 서비스가 연결되면 이 버튼을 통해 " +
-      "안전한 결제 페이지로 이동합니다."
-    );
-
-  });
-
-
-// ==========================================
-
-updateFund();
-
-// 계좌번호 복사
-const copyAccountButton = document.getElementById("copyAccount");
-
-if (copyAccountButton) {
-  copyAccountButton.addEventListener("click", async function () {
-
-    const accountNumber = "1002149842668";
-
-    try {
-      await navigator.clipboard.writeText(accountNumber);
-
-      const originalText = copyAccountButton.textContent;
-
-      copyAccountButton.textContent = "복사되었습니다 ✓";
-
-      setTimeout(function () {
-        copyAccountButton.textContent = originalText;
-      }, 2000);
-
-    } catch (error) {
-
-      // 복사가 안 되는 환경을 위한 대체 방법
-      const textArea = document.createElement("textarea");
-
-      textArea.value = accountNumber;
-      textArea.style.position = "fixed";
-      textArea.style.left = "-9999px";
-
-      document.body.appendChild(textArea);
-
-      textArea.focus();
-      textArea.select();
-
-      try {
-        document.execCommand("copy");
-        copyAccountButton.textContent = "복사되었습니다 ✓";
-      } catch (err) {
-        alert("계좌번호: " + accountNumber);
-      }
-
-      document.body.removeChild(textArea);
-
-      setTimeout(function () {
-        copyAccountButton.textContent = "계좌번호 복사";
-      }, 2000);
-    }
-
-  });
-}
-
-/* =========================================
-   언어별 화폐 표시
-========================================= */
-
-const currencySettings = {
-  ko: {
-    goal: "10,000,000원",
-    current: "0원",
-
-    costs: [
-      "50~150만원",
-      "150~300만원",
-      "150~300만원",
-      "50~150만원",
-      "50~150만원",
-      "100~200만원"
-    ]
-  },
-
-  en: {
-    goal: "$7,300",
-    current: "$0",
-
-    costs: [
-      "$365~$1,095",
-      "$1,095~$2,190",
-      "$1,095~$2,190",
-      "$365~$1,095",
-      "$365~$1,095",
-      "$730~$1,460"
-    ]
-  },
-
-  fr: {
-    goal: "6 250 €",
-    current: "0 €",
-
-    costs: [
-      "310~940 €",
-      "940~1 875 €",
-      "940~1 875 €",
-      "310~940 €",
-      "310~940 €",
-      "625~1 250 €"
-    ]
-  }
-};
-
-
-function updateCurrency(language) {
-
-  const currency = currencySettings[language];
-
-  if (!currency) {
-    return;
-  }
-
-
-  /* =========================================
-     1. 후원 목표금액
-  ========================================= */
-
-  const goalElements = document.querySelectorAll(
-    ".fund-top strong"
-  );
-
-  goalElements.forEach(function(element) {
-
-    element.textContent = currency.goal;
-
-  });
-
-
-/* =========================================
-     2. 현재 후원금
-     
-     반드시 0으로 시작
-  ========================================= */
-
-  const currentElement =
-    document.getElementById("currentAmount");
-
-  if (currentElement) {
-
-    currentElement.textContent =
-      currency.current;
-
-  }
-
-/* =========================================
-     3. 아래쪽 '목표' 금액
-  ========================================= */
-
-  const targetElement =
-    document.querySelector(
-      ".fund-number > span:last-child strong"
-    );
-
-  if (targetElement) {
-
-    targetElement.textContent =
-      currency.goal;
-
-  }
-
- /* =========================================
-     4. 치료비 항목
-  ========================================= */
-
-  const costElements =
-    document.querySelectorAll(
-      ".cost-grid strong"
-    );
-
-  costElements.forEach(function(element, index) {
-
-    if (currency.costs[index]) {
-
-      element.textContent =
-        currency.costs[index];
-
-    }
-
-  });
-
-}
-
-
-/* =========================================
-   기존 언어 변경 함수와 연결
-========================================= */
-
-const originalChangeLanguage =
-  window.changeLanguage;
-
-
-/*
-   기존 changeLanguage()가 실행된 뒤
-   화폐도 함께 변경
-*/
-
-if (typeof originalChangeLanguage === "function") {
-
-  window.changeLanguage = function(language) {
-
-    originalChangeLanguage(language);
-
-    updateCurrency(language);
-
-  };
-
-}
-
-
-/* 현재 선택된 언어로 최초 1회 적용 */
 
 const initialLanguage =
-  localStorage.getItem("danbiLanguage") || "ko";
-
-updateCurrency(initialLanguage);
-
-/* =========================================
-   후원금 목표 / 현재 후원금 언어 변경
-========================================= */
-
-const fundLanguageText = {
-
-  ko: {
-    current: "현재 후원금",
-    goal: "목표",
-    currentAmount: "0원",
-    goalAmount: "10,000,000원"
-  },
-
-  en: {
-    current: "Current Donations",
-    goal: "Goal",
-    currentAmount: "$0",
-    goalAmount: "$7,300"
-  },
-
-  fr: {
-    current: "Dons actuels",
-    goal: "Objectif",
-    currentAmount: "0 €",
-    goalAmount: "6 250 €"
-  }
-
-};
+  (
+    savedLanguage &&
+    translations[savedLanguage]
+  )
+    ? savedLanguage
+    : "ko";
 
 
-function updateFundLanguage(language) {
+/*
+   최초 언어 적용
 
-  const text = fundLanguageText[language];
+   여기서 번역과 화폐를
+   한 번에 적용합니다.
+*/
 
-  if (!text) {
-    return;
-  }
-
-
-  /* 현재 후원금 */
-
-  const currentLabel =
-    document.querySelector(
-      '[data-i18n="currentDonationLabel"]'
-    );
-
-  if (currentLabel) {
-    currentLabel.textContent = text.current;
-  }
+changeLanguage(
+  initialLanguage
+);
 
 
-  /* 목표 */
+/* =========================================================
+   12. INITIAL FUND PROGRESS
+========================================================= */
 
-  const goalLabel =
-    document.querySelector(
-      '[data-i18n="fundGoalLabel"]'
-    );
-
-  if (goalLabel) {
-    goalLabel.textContent = text.goal;
-  }
-
-
-  /* 현재 금액 */
-
-  const currentAmount =
-    document.getElementById("currentAmount");
-
-  if (currentAmount) {
-    currentAmount.textContent =
-      text.currentAmount;
-  }
-
-
-  /* 목표 금액 */
-
-  const goalAmount =
-    document.getElementById("fundGoalAmount");
-
-  if (goalAmount) {
-    goalAmount.textContent =
-      text.goalAmount;
-  }
-
-}
+updateFundProgress(); 
