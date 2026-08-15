@@ -2,7 +2,11 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>단비에게 다시 걸을 수 있는 시간을 주세요</title>
 
@@ -11,45 +15,115 @@
     content="골육종으로 투병 중인 13살 리트리버 단비의 치료를 위한 후원 페이지입니다."
   />
 
-  <meta name="theme-color" content="#fff7f2" />
+  <meta
+    name="theme-color"
+    content="#fff7f2"
+  />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap"
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
+
 
 <body>
 
-  <!-- 상단 네비게이션 -->
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">🐾 단비의 봄</div>
+  <!-- =========================
+       TOP BAR
+  ========================== -->
 
-      <a href="#donate" class="mini-donate">
-        후원하기
-      </a>
+  <header class="topbar">
+
+    <div class="topbar-inner">
+
+      <div class="brand">
+        🐾 <span data-i18n="brand">단비의 봄</span>
+      </div>
+
+
+      <div class="topbar-actions">
+
+        <!-- 언어 선택 -->
+
+        <div class="language-switcher">
+
+          <button
+            class="language-button active"
+            data-lang="ko"
+          >
+            한국어
+          </button>
+
+          <button
+            class="language-button"
+            data-lang="en"
+          >
+            English
+          </button>
+
+          <button
+            class="language-button"
+            data-lang="fr"
+          >
+            Français
+          </button>
+
+        </div>
+
+
+        <!-- 후원 버튼 -->
+
+        <a
+          href="#donate"
+          class="mini-donate"
+          data-i18n="navDonate"
+        >
+          후원하기
+        </a>
+
+      </div>
+
     </div>
+
   </header>
 
 
-  <!-- HERO -->
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
   <main>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
 
     <section class="hero">
 
       <div class="hero-image">
+
         <div class="hero-photo"></div>
 
         <div class="hero-badge">
+
           <span>2013.07.23</span>
+
           <strong>단비</strong>
+
         </div>
+
+
+        
       </div>
+
 
       <div class="hero-content">
 
@@ -57,104 +131,185 @@
           OUR FAMILY · OUR DANBI
         </p>
 
-        <h1>
-          단비에게<br />
-          <span>다시 걸을 수 있는 시간</span>을<br />
+
+        <h1 data-i18n="heroTitle">
+          단비에게<br>
+          <span>다시 걸을 수 있는 시간</span>을<br>
           주세요.
         </h1>
 
-        <p class="hero-text">
+
+        <p
+          class="hero-text"
+          data-i18n="heroText"
+        >
           13년 동안 우리 가족 곁을 지켜준 단비가
           골육종과 싸우고 있습니다.
         </p>
 
-        <a href="#donate" class="primary-button">
+
+        <a
+          href="#donate"
+          class="primary-button"
+          data-i18n="heroButton"
+        >
           ❤️ 단비 치료에 힘 보태기
         </a>
 
-        <p class="small-note">
+
+        <p
+          class="small-note"
+          data-i18n="heroNote"
+        >
           후원금은 단비의 치료와 회복을 위해 사용됩니다.
         </p>
 
       </div>
+
     </section>
 
 
-    <!-- 상태 카드 -->
-    <section class="status-section">
+
+    <!-- =========================
+         STATUS
+    ========================== -->
+
+    <section class="status-section section">
 
       <div class="section-title">
+
         <p>NOW</p>
-        <h2>지금 단비는</h2>
+
+        <h2 data-i18n="statusTitle">
+          지금 단비는
+        </h2>
+
       </div>
+
 
       <div class="status-grid">
 
+
         <div class="status-card">
+
           <span>🐕</span>
-          <small>생년월일</small>
-          <strong>2013.07.23</strong>
+
+          <small data-i18n="birthLabel">
+            생년월일
+          </small>
+
+          <strong>
+            2013.07.23
+          </strong>
+
         </div>
+
 
         <div class="status-card danger">
+
           <span>🩺</span>
-          <small>진단</small>
-          <strong>골육종</strong>
+
+          <small data-i18n="diagnosisLabel">
+            진단
+          </small>
+
+          <strong data-i18n="diagnosis">
+            골육종
+          </strong>
+
         </div>
 
+
         <div class="status-card">
+
           <span>💊</span>
-          <small>현재</small>
-          <strong>진통제 투약</strong>
+
+          <small data-i18n="currentLabel">
+            현재
+          </small>
+
+          <strong data-i18n="current">
+            진통제 투약
+          </strong>
+
         </div>
 
+
         <div class="status-card">
+
           <span>❤️</span>
-          <small>가능한 치료</small>
-          <strong>항암치료 검토</strong>
+
+          <small data-i18n="treatmentLabel">
+            가능한 치료
+          </small>
+
+          <strong data-i18n="treatment">
+            항암치료 검토
+          </strong>
+
         </div>
 
       </div>
+
     </section>
 
 
-    <!-- STORY -->
+
+    <!-- =========================
+         STORY
+    ========================== -->
+
     <section class="story section">
 
       <div class="section-title">
+
         <p>STORY</p>
-        <h2>단비에게 무슨 일이 있었나요?</h2>
+
+        <h2 data-i18n="storyTitle">
+          단비에게 무슨 일이 있었나요?
+        </h2>
+
       </div>
+
 
       <div class="story-box">
 
-        <p>
+
+        <p data-i18n="story1">
           단비는 2013년 7월 23일 태어나
           오랜 시간 우리 가족과 함께 살아온 소중한 가족입니다.
         </p>
 
-        <p>
+
+        <p data-i18n="story2">
           얼마 전 아랫배 쪽에 생긴 종양을 제거하기 위해
           수술을 진행했습니다.
         </p>
 
-        <p>
-          하지만 종양은 제거해도 다시 자라나게될거라고,
-          또다시 더 크게 자라나는 상황이 반복될거라고합니다.
+
+        <p data-i18n="story3">
+          하지만 종양은 제거해도 다시 자라나게 될 것이라고,
+          또다시 더 크게 자라나는 상황이 반복될 것이라고 합니다.
         </p>
 
-        <p>
+
+        <p data-i18n="story4">
           결국 수술을 계속 진행하기 어려워 수술을 중단하고,
           현재는 진통제를 투약하며 앞으로의 치료 방법을
           결정하기 위해 기다리고 있습니다.
         </p>
 
-        <div class="highlight">
-          💔 한쪽 뒷다리는 부어 있고,
+
+        <div
+          class="highlight"
+          data-i18n="storyHighlight"
+        >
+          💔 종양의 영향으로 한쪽 뒷다리는 심하게 부어 있고,
           다른 한쪽은 상처와 진물 때문에 피부가 짓무른 상태입니다.
         </div>
 
-        <p>
+
+        <p data-i18n="story5">
           단비에게 항암치료가 가능한지,
           수술이 도움이 될 수 있는지,
           그리고 필요한 경우 다리 절단 후 재활을 통해
@@ -162,165 +317,574 @@
         </p>
 
       </div>
+
     </section>
 
 
-    <!-- 사진 -->
+
+    <!-- =========================
+         GALLERY
+    ========================== -->
+
     <section class="gallery section">
 
       <div class="section-title">
+
         <p>OUR DANBI</p>
-        <h2>우리 가족의 단비</h2>
-      </div>
 
-      <div class="gallery-grid">
-
-        <img src="assets/danbi-01.jpg" alt="단비 사진 1">
-        <img src="assets/danbi-02.jpg" alt="단비 사진 2">
-        <img src="assets/danbi-03.jpg" alt="단비 사진 3">
+        <h2 data-i18n="galleryTitle">
+          우리 가족의 단비
+        </h2>
 
       </div>
 
+
+      <div class="danbi-gallery">
+
+  <!-- 단비 사진 01 -->
+  <div class="danbi-gallery-item">
+    <img
+      src="assets/danbi-01.jpg"
+      alt="단비 사진 1"
+    >
+  </div>
+
+  <!-- 단비 사진 02 -->
+  <div class="danbi-gallery-item">
+    <img
+      src="assets/danbi-02.jpg"
+      alt="단비 사진 2"
+    >
+  </div>
+
+  <!-- 단비 사진 03 -->
+  <div class="danbi-gallery-item">
+    <img
+      src="assets/danbi-03.jpg"
+      alt="단비 사진 3"
+    >
+  </div>
+
+  <!-- 단비 사진 04 -->
+  <div class="danbi-gallery-item">
+    <img
+      src="assets/danbi-04.jpg"
+      alt="단비 사진 4"
+    >
+  </div>
+
+  <!-- 단비 사진 05 -->
+  <div class="danbi-gallery-item">
+    <img
+      src="assets/danbi-05.jpg"
+      alt="단비 사진 5"
+    >
+  </div>
+
+  <!-- 단비 사진 06 -->
+  <div class="danbi-gallery-item">
+    <img
+      src="assets/danbi-06.jpg"
+      alt="단비 사진 6"
+    >
+  </div>
+
+  <!-- 단비 사진 07 -->
+  <div class="danbi-gallery-item">
+    <img
+      src="assets/danbi-07.jpg"
+      alt="단비 사진 7"
+    >
+  </div>
+
+  <!-- 단비 사진 08 -->
+  <div class="danbi-gallery-item">
+    <img
+      src="assets/danbi-08.jpg"
+      alt="단비 사진 8"
+    >
+  </div>
+
+  <!-- 단비 사진 09 -->
+  <div class="danbi-gallery-item">
+    <img
+      src="assets/danbi-09.jpg"
+      alt="단비 사진 9"
+    >
+  </div>
+</div>
+      <!-- 병원 치료 경과 -->
+<div class="treatment-history">
+
+  <div class="treatment-history-title">
+    <p>MEDICAL JOURNEY</p>
+    <h3>단비의 병원 치료 경과</h3>
+    <span>← 사진을 좌우로 넘겨보세요 →</span>
+  </div>
+
+  <div class="treatment-gallery">
+
+    <!-- 치료기록 01 -->
+    <article class="treatment-gallery-item">
+
+      <div class="treatment-gallery-photo">
+        <img
+          src="assets/danbi-treatment-01.jpg"
+          alt="단비 치료기록 1"
+        >
+
+        <span class="treatment-number">01</span>
+      </div>
+
+      <div class="treatment-gallery-caption">
+
+        <small>치료기록 01</small>
+
+        <h4>첫 번째 치료 기록</h4>
+
+        <p>
+          단비의 병원 치료 과정과 당시의 상태를 기록합니다.
+        </p>
+
+      </div>
+
+    </article>
+
+
+    <!-- 치료기록 02 -->
+    <article class="treatment-gallery-item">
+
+      <div class="treatment-gallery-photo">
+        <img
+          src="assets/danbi-treatment-02.jpg"
+          alt="단비 치료기록 2"
+        >
+
+        <span class="treatment-number">02</span>
+      </div>
+
+      <div class="treatment-gallery-caption">
+
+        <small>치료기록 02</small>
+
+        <h4>두 번째 치료 기록</h4>
+
+        <p>
+          단비의 치료 과정과 상태를 계속해서 기록하고 있습니다.
+        </p>
+
+      </div>
+
+    </article>
+
+
+    <!-- 치료기록 03 -->
+    <article class="treatment-gallery-item">
+
+      <div class="treatment-gallery-photo">
+        <img
+          src="assets/danbi-treatment-03.jpg"
+          alt="단비 치료기록 3"
+        >
+
+        <span class="treatment-number">03</span>
+      </div>
+
+      <div class="treatment-gallery-caption">
+
+        <small>치료기록 03</small>
+
+        <h4>세 번째 치료 기록</h4>
+
+        <p>
+          새로운 치료 과정과 단비의 상태를 기록합니다.
+        </p>
+
+      </div>
+
+    </article>
+
+
+    <!-- 치료기록 04 -->
+    <article class="treatment-gallery-item">
+
+      <div class="treatment-gallery-photo">
+        <img
+          src="assets/danbi-treatment-04.jpg"
+          alt="단비 치료기록 4"
+        >
+
+        <span class="treatment-number">04</span>
+      </div>
+
+      <div class="treatment-gallery-caption">
+
+        <small>치료기록 04</small>
+
+        <h4>네 번째 치료 기록</h4>
+
+        <p>
+          단비의 치료 경과와 회복 과정을 기록합니다.
+        </p>
+
+      </div>
+
+    </article>
+
+
+    <!-- 치료기록 05 -->
+    <article class="treatment-gallery-item">
+
+      <div class="treatment-gallery-photo">
+        <img
+          src="assets/danbi-treatment-05.jpg"
+          alt="단비 치료기록 5"
+        >
+
+        <span class="treatment-number">05</span>
+      </div>
+
+      <div class="treatment-gallery-caption">
+
+        <small>치료기록 05</small>
+
+        <h4>다섯 번째 치료 기록</h4>
+
+        <p>
+          단비의 새로운 치료 소식을 기록합니다.
+        </p>
+
+      </div>
+
+    </article>
+
+
+    <!-- 치료기록 06 -->
+    <article class="treatment-gallery-item">
+
+      <div class="treatment-gallery-photo">
+        <img
+          src="assets/danbi-treatment-06.jpg"
+          alt="단비 치료기록 6"
+        >
+
+        <span class="treatment-number">06</span>
+      </div>
+
+      <div class="treatment-gallery-caption">
+
+        <small>치료기록 06</small>
+
+        <h4>여섯 번째 치료 기록</h4>
+
+        <p>
+          앞으로의 치료 과정도 계속 기록하겠습니다.
+        </p>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</div>
+      
     </section>
 
 
-    <!-- TREATMENT -->
+
+    <!-- =========================
+         TREATMENT
+    ========================== -->
+
     <section class="treatment section">
 
       <div class="section-title">
+
         <p>HOPE</p>
-        <h2>앞으로 필요한 치료</h2>
+
+        <h2 data-i18n="hopeTitle">
+          앞으로 필요한 치료
+        </h2>
+
       </div>
+
 
       <div class="timeline">
 
+
         <div class="timeline-item">
-          <div class="number">01</div>
+
+          <div class="number">
+            01
+          </div>
+
           <div>
-            <h3>정밀검사</h3>
-            <p>
+
+            <h3 data-i18n="step1Title">
+              정밀검사
+            </h3>
+
+            <p data-i18n="step1Text">
               혈액검사와 영상검사 등을 통해
               단비의 현재 상태와 치료 가능성을 확인합니다.
             </p>
+
           </div>
+
         </div>
 
+
+
         <div class="timeline-item">
-          <div class="number">02</div>
+
+          <div class="number">
+            02
+          </div>
+
           <div>
-            <h3>항암치료 검토</h3>
-            <p>
+
+            <h3 data-i18n="step2Title">
+              항암치료 검토
+            </h3>
+
+            <p data-i18n="step2Text">
               수의사의 판단에 따라 항암치료 가능 여부와
               치료 방법을 결정합니다.
             </p>
+
           </div>
+
         </div>
 
+
+
         <div class="timeline-item">
-          <div class="number">03</div>
+
+          <div class="number">
+            03
+          </div>
+
           <div>
-            <h3>수술 가능성 검토</h3>
-            <p>
+
+            <h3 data-i18n="step3Title">
+              수술 가능성 검토
+            </h3>
+
+            <p data-i18n="step3Text">
               단비의 상태에 따라 다리 절단수술을 포함한
               수술적 치료 가능성을 검토합니다.
             </p>
+
           </div>
+
         </div>
 
+
+
         <div class="timeline-item">
-          <div class="number">04</div>
+
+          <div class="number">
+            04
+          </div>
+
           <div>
-            <h3>재활과 보조기구</h3>
-            <p>
+
+            <h3 data-i18n="step4Title">
+              재활과 보조기구
+            </h3>
+
+            <p data-i18n="step4Text">
               수술을 받게 된다면 재활치료와
               휠체어·보조기구 등이 필요할 수 있습니다.
             </p>
+
           </div>
+
         </div>
 
       </div>
+
     </section>
 
 
-    <!-- FUND -->
+
+    <!-- =========================
+         FUND
+    ========================== -->
+
     <section class="fund section">
 
       <div class="section-title">
+
         <p>HELP DANBI</p>
-        <h2>단비에게 필요한 치료비</h2>
+
+        <h2 data-i18n="fundTitle">
+          단비에게 필요한 치료비
+        </h2>
+
       </div>
+
 
       <div class="fund-card">
 
         <div class="fund-top">
+
           <div>
-            <span>1차 후원 목표</span>
-            <strong>10,000,000원</strong>
+
+            <span data-i18n="goalLabel">
+              1차 후원 목표
+            </span>
+
+            <strong>
+              10,000,000원
+            </strong>
+
           </div>
+
 
           <div class="fund-percent">
-            <strong id="percent">0%</strong>
+
+            <strong id="percent">
+              0%
+            </strong>
+
           </div>
+
         </div>
 
+
         <div class="progress">
+
           <div
             id="progressBar"
             class="progress-bar"
-            style="width: 0%"
+            style="width:0%"
           ></div>
+
         </div>
 
+
         <div class="fund-number">
-          <span>
-            현재 후원금
-            <strong id="currentAmount">0원</strong>
-          </span>
 
           <span>
-            목표
-            <strong>10,000,000원</strong>
+
+            <span data-i18n="currentDonation">
+              현재 후원금
+            </span>
+
+            <strong id="currentAmount">
+              0원
+            </strong>
+
           </span>
+
+
+          <span>
+
+            <span data-i18n="target">
+              목표
+            </span>
+
+            <strong>
+              10,000,000원
+            </strong>
+
+          </span>
+
         </div>
 
       </div>
+
 
 
       <div class="cost-grid">
 
-        <div>
-          <span>검사·진단</span>
-          <strong>50~150만원</strong>
-        </div>
 
         <div>
-          <span>수술·입원</span>
-          <strong>150~300만원</strong>
+
+          <span data-i18n="cost1">
+            검사·진단
+          </span>
+
+          <strong>
+            50~150만원
+          </strong>
+
         </div>
 
-        <div>
-          <span>항암치료</span>
-          <strong>150~300만원</strong>
-        </div>
 
         <div>
-          <span>통증·상처관리</span>
-          <strong>50~150만원</strong>
+
+          <span data-i18n="cost2">
+            수술·입원
+          </span>
+
+          <strong>
+            150~300만원
+          </strong>
+
         </div>
 
-        <div>
-          <span>재활·보조기구</span>
-          <strong>50~150만원</strong>
-        </div>
 
         <div>
-          <span>추가 치료비</span>
-          <strong>100~200만원</strong>
+
+          <span data-i18n="cost3">
+            항암치료
+          </span>
+
+          <strong>
+            150~300만원
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span data-i18n="cost4">
+            통증·상처관리
+          </span>
+
+          <strong>
+            50~150만원
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span data-i18n="cost5">
+            재활·보조기구
+          </span>
+
+          <strong>
+            50~150만원
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span data-i18n="cost6">
+            추가 치료비
+          </span>
+
+          <strong>
+            100~200만원
+          </strong>
+
         </div>
 
       </div>
 
-      <p class="estimate">
+
+      <p
+        class="estimate"
+        data-i18n="estimate"
+      >
         ※ 위 금액은 병원에서 확정된 견적이 아닌 후원 목표 설정을 위한
         예상 범위입니다. 실제 치료 방법과 비용은 담당 수의사의
         진료 및 병원 견적에 따라 달라질 수 있습니다.
@@ -329,75 +893,119 @@
     </section>
 
 
-    <!-- DONATE -->
-    <section id="donate" class="donate section">
+
+    <!-- =========================
+         DONATE
+    ========================== -->
+
+    <section
+      id="donate"
+      class="donate section"
+    >
 
       <div class="donate-inner">
 
-        <div class="heart">❤️</div>
+        <div class="heart">
+          ❤️
+        </div>
+
 
         <p class="eyebrow">
           PLEASE HELP DANBI
         </p>
 
-        <h2>
-          단비에게<br />
+
+        <h2 data-i18n="donateTitle">
+          단비에게<br>
           한 번만 더 기회를 주세요.
         </h2>
 
-        <p>
+
+        <p data-i18n="donateText">
           작은 마음 하나가 단비에게는
           치료를 계속할 수 있는 힘이 됩니다.
         </p>
 
 
+
+        <!-- 온라인 후원 -->
+
         <div class="donation-method">
 
-          <h3>💳 온라인 후원</h3>
+          <h3 data-i18n="onlineTitle">
+            💳 온라인 후원
+          </h3>
 
-          <p>
+
+          <p data-i18n="onlineText">
             아래 버튼을 통해 안전한 결제 페이지로
             이동할 수 있도록 연결할 예정입니다.
           </p>
 
+
           <button
             class="primary-button full"
             id="paymentButton"
+            data-i18n="onlineButton"
           >
             ❤️ 온라인 후원하기
           </button>
 
-          <p class="payment-note">
+
+          <p
+            class="payment-note"
+            data-i18n="paymentNote"
+          >
             현재 결제 서비스 준비 중입니다.
           </p>
 
         </div>
 
 
+
+        <!-- 계좌 후원 -->
+
         <div class="bank-method">
 
-          <h3>🏦 계좌 후원</h3>
+          <h3 data-i18n="bankTitle">
+            🏦 계좌 후원
+          </h3>
 
-          <p>
+
+          <p data-i18n="bankText">
             계좌이체를 원하시는 분은 아래 후원 계좌를
             이용해주세요.
           </p>
 
+
           <div class="account">
+
             <div>
-              <small>우리은행</small>
-              <strong>김우정</strong>
+
+              <small>
+                우리은행
+              </small>
+
+              <strong>
+                김우정
+              </strong>
+
             </div>
+
 
             <button id="copyAccount">
               계좌번호 복사
             </button>
+
           </div>
 
-          <p class="account-number">
-            계좌번호는 실제 공개 페이지 게시 전
-            직접 입력해주세요.
-          </p>
+          <div class="account-number">
+            <strong>1002 149 842668</strong>
+          </div>
+
+          <p class="account-owner-note">
+  후원 전 계좌정보를 다시 한번 확인해주세요.
+</p>
 
         </div>
 
@@ -406,41 +1014,78 @@
     </section>
 
 
-    <!-- TRANSPARENCY -->
+
+    <!-- =========================
+         TRANSPARENCY
+    ========================== -->
+
     <section class="transparency section">
 
       <div class="section-title">
+
         <p>TRANSPARENCY</p>
-        <h2>후원금은 투명하게 사용하겠습니다.</h2>
+
+        <h2 data-i18n="transparencyTitle">
+          후원금은 투명하게 사용하겠습니다.
+        </h2>
+
       </div>
+
 
       <div class="promise-grid">
 
+
         <div>
-          <span>01</span>
-          <h3>진료비 공개</h3>
-          <p>
+
+          <span>
+            01
+          </span>
+
+          <h3 data-i18n="promise1Title">
+            진료비 공개
+          </h3>
+
+          <p data-i18n="promise1Text">
             가능한 범위에서 진료비 영수증과
             치료 내역을 공유하겠습니다.
           </p>
+
         </div>
 
+
         <div>
-          <span>02</span>
-          <h3>치료 과정 공유</h3>
-          <p>
+
+          <span>
+            02
+          </span>
+
+          <h3 data-i18n="promise2Title">
+            치료 과정 공유
+          </h3>
+
+          <p data-i18n="promise2Text">
             단비의 치료 과정과 상태를
             꾸준히 알려드리겠습니다.
           </p>
+
         </div>
 
+
         <div>
-          <span>03</span>
-          <h3>남은 후원금</h3>
-          <p>
+
+          <span>
+            03
+          </span>
+
+          <h3 data-i18n="promise3Title">
+            남은 후원금
+          </h3>
+
+          <p data-i18n="promise3Text">
             치료 종료 후 남은 금액이 발생할 경우
             사용 내역을 안내하겠습니다.
           </p>
+
         </div>
 
       </div>
@@ -448,18 +1093,30 @@
     </section>
 
 
-    <!-- FINAL -->
+
+    <!-- =========================
+         FINAL
+    ========================== -->
+
     <section class="final-message">
 
       <div>
-        <p>단비야,</p>
 
-        <h2>
-          조금만 더 힘내자.<br />
+        <p data-i18n="finalGreeting">
+          단비야,
+        </p>
+
+
+        <h2 data-i18n="finalMessage">
+          조금만 더 힘내자.<br>
           우리가 끝까지 함께할게.
         </h2>
 
-        <span>🐾 ❤️ 🐾</span>
+
+        <span>
+          🐾 ❤️ 🐾
+        </span>
+
       </div>
 
     </section>
@@ -467,19 +1124,29 @@
   </main>
 
 
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
   <footer>
 
-    <strong>단비의 봄</strong>
+    <strong data-i18n="footerBrand">
+      단비의 봄
+    </strong>
 
-    <p>
+
+    <p data-i18n="footerText">
       골육종으로 투병 중인 단비의 치료를 위한 후원 페이지입니다.
     </p>
 
-    <small>
+
+    <small data-i18n="footerNotice">
       본 페이지의 치료비는 예상 금액이며 실제 치료비와 다를 수 있습니다.
     </small>
 
   </footer>
+
 
 
   <script src="script.js"></script>
