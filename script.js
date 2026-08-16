@@ -2117,8 +2117,8 @@ function initializePayPal() {
 
 
         paypalButton.textContent =
-          "🅿️ PayPal로 후원하기";
-
+          //"🅿️ PayPal로 후원하기";
+        getPaymentButtonText("paypalButton");
       }
 
     }
@@ -2296,7 +2296,7 @@ function initializeNaverPay() {
 
 
         naverPayButton.textContent =
-          "🟢 네이버페이로 후원하기";
+          getPaymentButtonText("naverPayButton");
 
       }
 
@@ -2399,3 +2399,11 @@ if (
 
 }
 
+///////
+function getPaymentButtonText(key) {
+
+  const language = getCurrentLanguage();
+
+  return translations[language]?.[key] || "";
+
+}
