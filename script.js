@@ -284,7 +284,11 @@ const translations = {
       "숨을 헐떡이며 누워 지냄. 가바펜틴 진통제 복용"
 ,selectedDonationLabel: "선택한 후원금",
         paypalButton: "🌎 PayPal로 후원하기",
-      naverPayButton: "🟢 NaverPay로 후원하기"
+      naverPayButton: "🟢 NaverPay로 후원하기",
+      recheckaccount:
+  "후원 전 계좌정보를 다시 한번 확인해주세요.",
+        bankName: "우리은행",
+        accountCopy: "계좌번호 복사"
   },
 
 
@@ -540,7 +544,10 @@ const translations = {
       selectedDonationLabel :"Selected Donation",
 
       paypalButton: "🌎 Donate via Paypal",
-      naverPayButton: "🟢 Donate via NaverPay"
+      naverPayButton: "🟢 Donate via NaverPay",
+      recheckaccount: "Please double-check the bank account information before making a donation.",
+      bankName: "Woori Bank (South Korea)",
+      accountCopy: "Copy Account Number"
   },
 
 
@@ -797,7 +804,10 @@ const translations = {
       selectedDonationLabel:"Don sélectionné",
 
       paypalButton: "🌎 Faire un don via PayPal",
-      naverPayButton: "🟢 Faire un don via NaverPay"
+      naverPayButton: "🟢 Faire un don via NaverPay",
+      recheckaccount:"Veuillez vérifier à nouveau les coordonnées bancaires avant de faire un don.",
+      bankName: "Woori Bank (Corée du Sud)",
+      accountCopy: "Copier le numéro de compte"
   }
 
 };
