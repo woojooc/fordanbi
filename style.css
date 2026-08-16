@@ -1352,3 +1352,460 @@ html {
   }
 
 }
+
+/* =====================================================
+   후원금액 선택
+===================================================== */
+
+.donation-amount-section {
+  margin-top: 28px;
+}
+
+
+.donation-amount-title {
+  margin-bottom: 14px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #555;
+}
+
+
+.donation-amount-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 10px;
+}
+
+
+.donation-amount-button {
+  min-height: 52px;
+
+  padding: 12px 8px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  background: #fff;
+
+  color: #333;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+}
+
+
+.donation-amount-button:hover {
+  border-color: #e8a23a;
+
+  background: #fffaf2;
+}
+
+
+.donation-amount-button:active {
+  transform: scale(0.97);
+}
+
+
+/* 선택된 버튼 */
+
+.donation-amount-button.active {
+  border-color: #e8a23a;
+
+  background: #e8a23a;
+
+  color: #fff;
+}
+
+
+/* 선택 금액 */
+
+.selected-donation {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 18px;
+
+  padding: 18px 20px;
+
+  border-radius: 14px;
+
+  background: #faf7f2;
+}
+
+
+.selected-donation span {
+  color: #666;
+
+  font-size: 14px;
+}
+
+
+.selected-donation strong {
+  color: #222;
+
+  font-size: 22px;
+  font-weight: 800;
+}
+
+
+/* =====================================================
+   모바일
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .donation-amount-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .donation-amount-button {
+    min-height: 50px;
+
+    font-size: 14px;
+  }
+
+
+  .selected-donation {
+    padding: 16px;
+  }
+
+
+  .selected-donation strong {
+    font-size: 20px;
+  }
+
+}
+
+/* =========================================================
+   DANBI DONATION AMOUNT
+========================================================= */
+
+
+/* =========================================================
+   후원금액 전체 영역
+========================================================= */
+
+.donation-amount-section {
+
+  width: 100%;
+
+  margin-top: 28px;
+
+}
+
+
+/* =========================================================
+   제목
+========================================================= */
+
+.donation-amount-title {
+
+  margin-bottom: 14px;
+
+  color: #555;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  line-height: 1.5;
+
+}
+
+
+/* =========================================================
+   금액 버튼 그리드
+========================================================= */
+
+.donation-amount-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 10px;
+
+  width: 100%;
+
+}
+
+
+/* =========================================================
+   금액 버튼
+========================================================= */
+
+.donation-amount-button {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+
+  min-height: 54px;
+
+  padding: 12px 8px;
+
+  border: 1px solid #dedede;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  color: #333333;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  cursor: pointer;
+
+  appearance: none;
+
+  -webkit-appearance: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.12s ease;
+
+}
+
+
+/* =========================================================
+   버튼 hover
+========================================================= */
+
+.donation-amount-button:hover {
+
+  border-color: #e7a23b;
+
+  background: #fffaf3;
+
+}
+
+
+/* =========================================================
+   버튼 클릭
+========================================================= */
+
+.donation-amount-button:active {
+
+  transform: scale(0.97);
+
+}
+
+
+/* =========================================================
+   선택된 버튼
+========================================================= */
+
+.donation-amount-button.active {
+
+  border-color: #e7a23b;
+
+  background: #e7a23b;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 4px 12px rgba(231, 162, 59, 0.22);
+
+}
+
+
+/* =========================================================
+   선택된 버튼 hover
+========================================================= */
+
+.donation-amount-button.active:hover {
+
+  border-color: #d99126;
+
+  background: #d99126;
+
+  color: #ffffff;
+
+}
+
+
+/* =========================================================
+   버튼 안 텍스트
+========================================================= */
+
+.donation-amount-text {
+
+  display: block;
+
+  pointer-events: none;
+
+}
+
+
+/* =========================================================
+   선택된 후원금 표시
+========================================================= */
+
+.selected-donation {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  width: 100%;
+
+  margin-top: 18px;
+
+  padding: 18px 20px;
+
+  border: 1px solid #eee5d9;
+
+  border-radius: 14px;
+
+  background: #faf7f2;
+
+  box-sizing: border-box;
+
+}
+
+
+/* =========================================================
+   선택 금액 라벨
+========================================================= */
+
+.selected-donation span {
+
+  color: #666666;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+}
+
+
+/* =========================================================
+   선택 금액
+========================================================= */
+
+.selected-donation strong {
+
+  color: #222222;
+
+  font-size: 22px;
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .donation-amount-grid {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .donation-amount-section {
+
+    margin-top: 24px;
+
+  }
+
+
+  .donation-amount-grid {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+
+  }
+
+
+  .donation-amount-button {
+
+    min-height: 50px;
+
+    padding: 10px 6px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+  }
+
+
+  .selected-donation {
+
+    margin-top: 14px;
+
+    padding: 16px;
+
+  }
+
+
+  .selected-donation span {
+
+    font-size: 13px;
+
+  }
+
+
+  .selected-donation strong {
+
+    font-size: 19px;
+
+  }
+
+}

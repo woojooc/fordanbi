@@ -1,6 +1,7 @@
 /* =========================================================
    DANBI WEBSITE
-   Language + Scroll + Account Copy
+   Language + Currency + Donation Amount + Account Copy
+   PayPal + Naver Pay
 ========================================================= */
 
 
@@ -10,7 +11,6 @@
 
 window.addEventListener("load", function () {
 
-  // URL에 #donate 등이 붙어 있어도 첫 진입은 맨 위
   if (window.location.hash) {
 
     history.replaceState(
@@ -32,6 +32,10 @@ window.addEventListener("load", function () {
 ========================================================= */
 
 const translations = {
+
+  /* =====================================================
+     KOREAN
+  ===================================================== */
 
   ko: {
 
@@ -180,13 +184,13 @@ const translations = {
       "💳 온라인 후원",
 
     onlineText:
-      "아래 버튼을 통해 안전한 결제 페이지로 이동할 수 있도록 연결할 예정입니다.",
+      "아래 버튼을 통해 안전한 결제 페이지로 이동할 수 있습니다.",
 
     paymentButton:
       "❤️ 온라인 후원하기",
 
     paymentNote:
-      "현재 결제 서비스 준비 중입니다.",
+      "PayPal 및 네이버페이 결제를 이용할 수 있습니다.",
 
     bankTitle:
       "🏦 계좌 후원",
@@ -231,53 +235,54 @@ const translations = {
       "골육종으로 투병 중인 단비의 치료를 위한 후원 페이지입니다.",
 
     footerNotice:
-      "본 페이지의 치료비는 예상 금액이며 실제 치료비와 다를 수 있습니다."
-,
+      "본 페이지의 치료비는 예상 금액이며 실제 치료비와 다를 수 있습니다.",
+
+
     medicalJourney:
-  "MEDICAL JOURNEY",
+      "MEDICAL JOURNEY",
 
-medicalJourneyTitle:
-  "단비의 병원 치료 경과",
+    medicalJourneyTitle:
+      "단비의 병원 치료 경과",
 
-medicalJourneyGuide:
-  "← 사진을 좌우로 넘겨보세요 →",
+    medicalJourneyGuide:
+      "← 사진을 좌우로 넘겨보세요 →",
 
-treatmentRecord1Label:
-  "치료기록 01",
+    treatmentRecord1Label:
+      "치료기록 01",
 
-treatmentRecord1Title:
-  "첫 번째 증상발생 기록",
+    treatmentRecord1Title:
+      "첫 번째 증상발생 기록",
 
-treatmentRecord1Text:
-  "아랫배쪽 종양이 점점 커짐",
+    treatmentRecord1Text:
+      "아랫배쪽 종양이 점점 커짐",
 
-treatmentRecord2Label:
-  "치료기록 02",
+    treatmentRecord2Label:
+      "치료기록 02",
 
-treatmentRecord2Title:
-  "두 번째 치료 기록",
+    treatmentRecord2Title:
+      "두 번째 치료 기록",
 
-treatmentRecord2Text:
-  "종양과 함께 자궁 및 젖꼭지들을 모두 제거하는 수술",
+    treatmentRecord2Text:
+      "종양과 함께 자궁 및 젖꼭지들을 모두 제거하는 수술",
 
-treatmentRecord3Label:
-  "호스피스기록 01",
+    treatmentRecord3Label:
+      "호스피스기록 01",
 
-treatmentRecord3Title:
-  "첫 번째 호스피스 기록",
+    treatmentRecord3Title:
+      "첫 번째 호스피스 기록",
 
-treatmentRecord3Text:
-  "새로운 종양이 추가로 생겼으며 더 커짐. 해당 사항으로 다리 부종이 생기고 피부가 짓무르게 됨. 가바펜틴 진통제 복용",
+    treatmentRecord3Text:
+      "새로운 종양이 추가로 생겼으며 더 커짐. 해당 사항으로 다리 부종이 생기고 피부가 짓무르게 됨. 가바펜틴 진통제 복용",
 
-treatmentRecord4Label:
-  "호스피스기록 02",
+    treatmentRecord4Label:
+      "호스피스기록 02",
 
-treatmentRecord4Title:
-  "두 번째 호스피스 기록",
+    treatmentRecord4Title:
+      "두 번째 호스피스 기록",
 
-treatmentRecord4Text:
-  "숨을 헐떡이며 누워 지냄. 가바펜틴 진통제 복용",
-
+    treatmentRecord4Text:
+      "숨을 헐떡이며 누워 지냄. 가바펜틴 진통제 복용"
+,selectedDonationLabel: "선택한 후원금"
   },
 
 
@@ -432,13 +437,13 @@ treatmentRecord4Text:
       "💳 Online Donation",
 
     onlineText:
-      "We plan to connect this button to a secure payment page.",
+      "You can make a donation using the secure payment options below.",
 
     paymentButton:
       "❤️ Donate Online",
 
     paymentNote:
-      "Online payment service is currently being prepared.",
+      "PayPal and Naver Pay are available.",
 
     bankTitle:
       "🏦 Bank Transfer",
@@ -484,50 +489,54 @@ treatmentRecord4Text:
 
     footerNotice:
       "Treatment costs shown on this page are estimates and may differ from actual expenses.",
+
+
     medicalJourney:
-  "MEDICAL JOURNEY",
+      "MEDICAL JOURNEY",
 
-medicalJourneyTitle:
-  "Danbi's Medical Journey",
+    medicalJourneyTitle:
+      "Danbi's Medical Journey",
 
-medicalJourneyGuide:
-  "← Swipe left or right to view photos →",
+    medicalJourneyGuide:
+      "← Swipe left or right to view photos →",
 
-treatmentRecord1Label:
-  "Treatment Record 01",
+    treatmentRecord1Label:
+      "Treatment Record 01",
 
-treatmentRecord1Title:
-  "First Symptom Record",
+    treatmentRecord1Title:
+      "First Symptom Record",
 
-treatmentRecord1Text:
-  "The tumor in the lower abdomen gradually became larger.",
+    treatmentRecord1Text:
+      "The tumor in the lower abdomen gradually became larger.",
 
-treatmentRecord2Label:
-  "Treatment Record 02",
+    treatmentRecord2Label:
+      "Treatment Record 02",
 
-treatmentRecord2Title:
-  "Second Treatment Record",
+    treatmentRecord2Title:
+      "Second Treatment Record",
 
-treatmentRecord2Text:
-  "Surgery was performed to remove the tumor along with the uterus and mammary glands.",
+    treatmentRecord2Text:
+      "Surgery was performed to remove the tumor along with the uterus and mammary glands.",
 
-treatmentRecord3Label:
-  "Hospice Record 01",
+    treatmentRecord3Label:
+      "Hospice Record 01",
 
-treatmentRecord3Title:
-  "First Hospice Record",
+    treatmentRecord3Title:
+      "First Hospice Record",
 
-treatmentRecord3Text:
-  "A new tumor developed and continued to grow. This caused swelling in the leg and severe skin irritation. Gabapentin was administered for pain relief.",
+    treatmentRecord3Text:
+      "A new tumor developed and continued to grow. This caused swelling in the leg and severe skin irritation. Gabapentin was administered for pain relief.",
 
-treatmentRecord4Label:
-  "Hospice Record 02",
+    treatmentRecord4Label:
+      "Hospice Record 02",
 
-treatmentRecord4Title:
-  "Second Hospice Record",
+    treatmentRecord4Title:
+      "Second Hospice Record",
 
-treatmentRecord4Text:
-  "Danbi spent most of her time lying down and breathing heavily. Gabapentin was administered for pain relief.",
+    treatmentRecord4Text:
+      "Danbi spent most of her time lying down and breathing heavily. Gabapentin was administered for pain relief.",
+      selectedDonationLabel :"Selected Donation"
+
   },
 
 
@@ -682,13 +691,13 @@ treatmentRecord4Text:
       "💳 Don en ligne",
 
     onlineText:
-      "Nous prévoyons de relier ce bouton à une page de paiement sécurisée.",
+      "Vous pouvez effectuer un don avec les options de paiement sécurisées ci-dessous.",
 
     paymentButton:
       "❤️ Faire un don en ligne",
 
     paymentNote:
-      "Le service de paiement en ligne est actuellement en préparation.",
+      "PayPal et Naver Pay sont disponibles.",
 
     bankTitle:
       "🏦 Virement bancaire",
@@ -735,50 +744,55 @@ treatmentRecord4Text:
     footerNotice:
       "Les frais indiqués sur cette page sont estimatifs et peuvent différer des dépenses réelles.",
 
+
     medicalJourney:
-  "PARCOURS MÉDICAL",
+      "PARCOURS MÉDICAL",
 
-medicalJourneyTitle:
-  "Le parcours médical de Danbi",
+    medicalJourneyTitle:
+      "Le parcours médical de Danbi",
 
-medicalJourneyGuide:
-  "← Faites glisser les photos vers la gauche ou la droite →",
+    medicalJourneyGuide:
+      "← Faites glisser les photos vers la gauche ou la droite →",
 
-treatmentRecord1Label:
-  "Dossier médical 01",
+    treatmentRecord1Label:
+      "Dossier médical 01",
 
-treatmentRecord1Title:
-  "Premiers symptômes",
+    treatmentRecord1Title:
+      "Premiers symptômes",
 
-treatmentRecord1Text:
-  "La tumeur située dans le bas de l'abdomen a progressivement grossi.",
+    treatmentRecord1Text:
+      "La tumeur située dans le bas de l'abdomen a progressivement grossi.",
 
-treatmentRecord2Label:
-  "Dossier médical 02",
+    treatmentRecord2Label:
+      "Dossier médical 02",
 
-treatmentRecord2Title:
-  "Deuxième dossier de soins",
+    treatmentRecord2Title:
+      "Deuxième dossier de soins",
 
-treatmentRecord2Text:
-  "Une intervention chirurgicale a été réalisée afin de retirer la tumeur ainsi que l'utérus et les glandes mammaires.",
+    treatmentRecord2Text:
+      "Une intervention chirurgicale a été réalisée afin de retirer la tumeur ainsi que l'utérus et les glandes mammaires.",
 
-treatmentRecord3Label:
-  "Dossier de soins palliatifs 01",
+    treatmentRecord3Label:
+      "Dossier de soins palliatifs 01",
 
-treatmentRecord3Title:
-  "Premier dossier de soins palliatifs",
+    treatmentRecord3Title:
+      "Premier dossier de soins palliatifs",
 
-treatmentRecord3Text:
-  "Une nouvelle tumeur est apparue et a continué à grossir. Cela a provoqué un gonflement de la patte et une importante irritation de la peau. De la gabapentine a été administrée pour soulager la douleur.",
+    treatmentRecord3Text:
+      "Une nouvelle tumeur est apparue et a continué à grossir. Cela a provoqué un gonflement de la patte et une importante irritation de la peau. De la gabapentine a été administrée pour soulager la douleur.",
 
-treatmentRecord4Label:
-  "Dossier de soins palliatifs 02",
+    treatmentRecord4Label:
+      "Dossier de soins palliatifs 02",
 
-treatmentRecord4Title:
-  "Deuxième dossier de soins palliatifs",
+    treatmentRecord4Title:
+      "Deuxième dossier de soins palliatifs",
 
-treatmentRecord4Text:
-  "Danbi restait principalement allongée et respirait difficilement. De la gabapentine a été administrée pour soulager la douleur.",
+    treatmentRecord4Text:
+      "Danbi restait principalement allongée et respirait difficilement. De la gabapentine a été administrée pour soulager la douleur."
+      ,
+      selectedDonationLabel:"Don sélectionné"
+
+
   }
 
 };
@@ -786,11 +800,10 @@ treatmentRecord4Text:
 
 /* =========================================================
    3. CURRENCY SETTINGS
+   치료비 / 목표금액 표시
 ========================================================= */
 
 const currencySettings = {
-
-  /* 🇰🇷 한국어 */
 
   ko: {
 
@@ -811,9 +824,6 @@ const currencySettings = {
 
   },
 
-
-  /* 🇺🇸 English */
-
   en: {
 
     symbol: "$",
@@ -832,9 +842,6 @@ const currencySettings = {
     ]
 
   },
-
-
-  /* 🇫🇷 Français */
 
   fr: {
 
@@ -892,101 +899,394 @@ const fundLabels = {
 
 
 /* =========================================================
-   5. CHANGE LANGUAGE
+   5. DONATION AMOUNT DISPLAY
+   실제 선택 기준값은 KRW
+   화면에 보이는 금액만 언어별로 변경
 ========================================================= */
 
-function changeLanguage(language) {
+const donationDisplayAmounts = {
 
-  const selected =
-    translations[language];
+  ko: {
 
-  if (!selected) {
-    return;
-  }
+    10000: "1만원",
+    50000: "5만원",
+    100000: "10만원",
+    500000: "50만원",
+    1000000: "100만원",
+    3000000: "300만원",
+    5000000: "500만원"
 
+  },
 
-  /* HTML 언어 설정 */
+  en: {
 
-  document.documentElement.lang =
-    language;
+    10000: "$10",
+    50000: "$50",
+    100000: "$100",
+    500000: "$500",
+    1000000: "$1,000",
+    3000000: "$3,000",
+    5000000: "$5,000"
 
+  },
 
-  /* 일반 번역 */
+  fr: {
 
-  document
-    .querySelectorAll("[data-i18n]")
-    .forEach(function (element) {
-
-      /*const key =
-        element.dataset.i18n;*/
-      const key = element.getAttribute("data-i18n");  
-
-      if (selected[key] !== undefined) {
-
-        element.innerHTML =
-          selected[key];
-
-      }
-
-    });
-
-
-  /* 언어 버튼 active */
-
-  document
-    .querySelectorAll(".language-button")
-    .forEach(function (button) {
-
-      button.classList.remove("active");
-
-      if (
-        button.dataset.lang ===
-        language
-      ) {
-
-        button.classList.add("active");
-      }
-
-      if (
-        button.getAttribute("data-lang") === language
-      ) {
-        button.classList.add("active");
-      }
-
-    });
-
-
-  /* 선택 언어 저장 */
-
-  localStorage.setItem(
-    "danbiLanguage",
-    language
-  );
-
-
-  /* 화폐 변경 */
-
-  updateCurrency(language);
-
-
-/* ==============================
-     통화 변경
-  ============================== */
-
-  if (typeof updateCurrency === "function") {
-
-    updateCurrency(language);
+    10000: "10 €",
+    50000: "50 €",
+    100000: "100 €",
+    500000: "500 €",
+    1000000: "1 000 €",
+    3000000: "3 000 €",
+    5000000: "5 000 €"
 
   }
+
+};
+
+
+/* =========================================================
+   6. PAYMENT AMOUNT
+========================================================= */
+
+/*
+   PayPal은 USD
+   Naver Pay는 KRW
+
+   여기서는 환율 계산을 하지 않는다.
+   각각 보기 좋은 고정 금액을 사용한다.
+*/
+
+const paypalDonationAmounts = {
+
+  10000: 10,
+  50000: 50,
+  100000: 100,
+  500000: 500,
+  1000000: 1000,
+  3000000: 3000,
+  5000000: 5000
+
+};
+
+
+/* =========================================================
+   7. DONATION STATE
+========================================================= */
+
+let selectedDonationAmountKRW = 10000;
+
+
+/* =========================================================
+   8. CURRENT LANGUAGE
+========================================================= */
+
+function getCurrentLanguage() {
+
+  const language =
+    localStorage.getItem(
+      "danbiLanguage"
+    );
+
+  if (
+    language &&
+    translations[language]
+  ) {
+
+    return language;
+
+  }
+
+  return "ko";
 
 }
 
 
 /* =========================================================
-   6. CURRENCY UPDATE
+   9. FORMAT DONATION AMOUNT
 ========================================================= */
 
-function updateCurrency(language) {
+function formatDonationAmount(
+  amountKRW,
+  language
+) {
+
+  const languageAmounts =
+    donationDisplayAmounts[language];
+
+
+  if (
+    languageAmounts &&
+    languageAmounts[amountKRW] !== undefined
+  ) {
+
+    return languageAmounts[amountKRW];
+
+  }
+
+
+  if (language === "en") {
+
+    return "$" +
+      Number(amountKRW)
+        .toLocaleString("en-US");
+
+  }
+
+
+  if (language === "fr") {
+
+    return Number(amountKRW)
+      .toLocaleString("fr-FR") +
+      " €";
+
+  }
+
+
+  return Number(amountKRW)
+    .toLocaleString("ko-KR") +
+    "원";
+
+}
+
+
+/* =========================================================
+   10. UPDATE DONATION BUTTON LANGUAGE
+========================================================= */
+
+function updateDonationAmountButtons(
+  language
+) {
+
+  const buttons =
+    document.querySelectorAll(
+      ".donation-amount-button"
+    );
+
+
+  buttons.forEach(
+    function(button) {
+
+      const amount =
+        Number(
+          button.getAttribute(
+            "data-amount"
+          )
+        );
+
+
+      const textElement =
+        button.querySelector(
+          ".donation-amount-text"
+        );
+
+
+      if (!textElement) {
+
+        return;
+
+      }
+
+
+      textElement.textContent =
+        formatDonationAmount(
+          amount,
+          language
+        );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   11. UPDATE SELECTED DONATION DISPLAY
+========================================================= */
+
+function updateSelectedDonationDisplay(
+  language
+) {
+
+  const element =
+    document.getElementById(
+      "selectedDonationAmount"
+    );
+
+
+  if (!element) {
+
+    return;
+
+  }
+
+
+  element.textContent =
+    formatDonationAmount(
+      selectedDonationAmountKRW,
+      language
+    );
+
+}
+
+
+/* =========================================================
+   12. SET DONATION AMOUNT
+========================================================= */
+
+function setDonationAmount(
+  amount
+) {
+
+  const numericAmount =
+    Number(amount);
+
+
+  if (
+    !Number.isFinite(
+      numericAmount
+    ) ||
+    numericAmount <= 0
+  ) {
+
+    return;
+
+  }
+
+
+  selectedDonationAmountKRW =
+    numericAmount;
+
+
+  /* 모든 버튼 active 제거 */
+
+  document
+    .querySelectorAll(
+      ".donation-amount-button"
+    )
+    .forEach(
+      function(button) {
+
+        button.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+  /* 선택한 버튼 active */
+
+  const selectedButton =
+    document.querySelector(
+      '.donation-amount-button[data-amount="' +
+      numericAmount +
+      '"]'
+    );
+
+
+  if (selectedButton) {
+
+    selectedButton.classList.add(
+      "active"
+    );
+
+  }
+
+
+  updateSelectedDonationDisplay(
+    getCurrentLanguage()
+  );
+
+}
+
+
+/* HTML onclick에서도 사용할 수 있도록 */
+
+window.setDonationAmount =
+  setDonationAmount;
+
+
+/* =========================================================
+   13. INITIALIZE DONATION BUTTONS
+========================================================= */
+
+function initializeDonationAmountButtons() {
+
+  const buttons =
+    document.querySelectorAll(
+      ".donation-amount-button"
+    );
+
+
+  if (!buttons.length) {
+
+    return;
+
+  }
+
+
+  buttons.forEach(
+    function(button) {
+
+      button.addEventListener(
+        "click",
+        function(event) {
+
+          event.preventDefault();
+
+
+          const amount =
+            Number(
+              button.getAttribute(
+                "data-amount"
+              )
+            );
+
+
+          setDonationAmount(
+            amount
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  /* 기본 선택 */
+
+  setDonationAmount(
+    selectedDonationAmountKRW
+  );
+
+
+  /* 현재 언어 적용 */
+
+  const language =
+    getCurrentLanguage();
+
+
+  updateDonationAmountButtons(
+    language
+  );
+
+
+  updateSelectedDonationDisplay(
+    language
+  );
+
+}
+
+
+/* =========================================================
+   14. UPDATE CURRENCY
+========================================================= */
+
+function updateCurrency(
+  language
+) {
 
   const currency =
     currencySettings[language];
@@ -995,19 +1295,23 @@ function updateCurrency(language) {
     fundLabels[language];
 
 
-  if (!currency || !labels) {
+  if (
+    !currency ||
+    !labels
+  ) {
+
     return;
+
   }
 
 
-  /* =========================================
-     현재 후원금 금액
-  ========================================= */
+  /* 현재 후원금 */
 
   const currentAmount =
     document.getElementById(
       "currentAmount"
     );
+
 
   if (currentAmount) {
 
@@ -1017,14 +1321,13 @@ function updateCurrency(language) {
   }
 
 
-  /* =========================================
-     상단 목표 금액
-  ========================================= */
+  /* 상단 목표 */
 
   const goalAmount =
     document.getElementById(
       "fundGoalAmount"
     );
+
 
   if (goalAmount) {
 
@@ -1034,14 +1337,13 @@ function updateCurrency(language) {
   }
 
 
-  /* =========================================
-     아래쪽 목표 금액
-  ========================================= */
+  /* 아래쪽 목표 */
 
   const targetElement =
     document.querySelector(
       ".fund-number > span:last-child strong"
     );
+
 
   if (targetElement) {
 
@@ -1051,14 +1353,13 @@ function updateCurrency(language) {
   }
 
 
-  /* =========================================
-     현재 후원금 라벨
-  ========================================= */
+  /* 현재 후원금 라벨 */
 
   const currentLabel =
     document.querySelector(
       '[data-i18n="currentDonation"]'
     );
+
 
   if (currentLabel) {
 
@@ -1068,14 +1369,13 @@ function updateCurrency(language) {
   }
 
 
-  /* =========================================
-     목표 라벨
-  ========================================= */
+  /* 목표 라벨 */
 
   const goalLabel =
     document.querySelector(
       '[data-i18n="goalText"]'
     );
+
 
   if (goalLabel) {
 
@@ -1085,12 +1385,7 @@ function updateCurrency(language) {
   }
 
 
-  /* =========================================
-     치료비 금액
-     
-     항목 이름은 translations가 담당
-     금액만 currencySettings가 담당
-  ========================================= */
+  /* 치료비 */
 
   const costElements =
     document.querySelectorAll(
@@ -1099,9 +1394,11 @@ function updateCurrency(language) {
 
 
   costElements.forEach(
-    function (element, index) {
+    function(element, index) {
 
-      if (currency.costs[index]) {
+      if (
+        currency.costs[index]
+      ) {
 
         element.textContent =
           currency.costs[index];
@@ -1115,49 +1412,160 @@ function updateCurrency(language) {
 
 
 /* =========================================================
-   7. LANGUAGE BUTTONS
+   15. CHANGE LANGUAGE
 ========================================================= */
 
-document
-  .querySelectorAll(".language-button")
-  .forEach(function (button) {
+function changeLanguage(
+  language
+) {
 
-    button.addEventListener(
-      "click",
-      function () {
+  const selected =
+    translations[language];
 
-        changeLanguage(
-          button.dataset.lang
+
+  if (!selected) {
+
+    return;
+
+  }
+
+
+  /* HTML lang */
+
+  document.documentElement.lang =
+    language;
+
+
+  /* 일반 번역 */
+
+  document
+    .querySelectorAll(
+      "[data-i18n]"
+    )
+    .forEach(
+      function(element) {
+
+        const key =
+          element.getAttribute(
+            "data-i18n"
+          );
+
+
+        if (
+          selected[key] !== undefined
+        ) {
+
+          element.innerHTML =
+            selected[key];
+
+        }
+
+      }
+    );
+
+
+  /* 언어 버튼 active */
+
+  document
+    .querySelectorAll(
+      ".language-button"
+    )
+    .forEach(
+      function(button) {
+
+        button.classList.remove(
+          "active"
+        );
+
+
+        if (
+          button.getAttribute(
+            "data-lang"
+          ) === language
+        ) {
+
+          button.classList.add(
+            "active"
+          );
+
+        }
+
+      }
+    );
+
+
+  /* 저장 */
+
+  localStorage.setItem(
+    "danbiLanguage",
+    language
+  );
+
+
+  /* 통화 */
+
+  updateCurrency(
+    language
+  );
+
+
+  /* 후원금 버튼 */
+
+  updateDonationAmountButtons(
+    language
+  );
+
+
+  /* 선택된 후원금 */
+
+  updateSelectedDonationDisplay(
+    language
+  );
+
+}
+
+
+/* =========================================================
+   16. LANGUAGE BUTTONS
+========================================================= */
+
+function initializeLanguageButtons() {
+
+  document
+    .querySelectorAll(
+      ".language-button"
+    )
+    .forEach(
+      function(button) {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+            const language =
+              button.getAttribute(
+                "data-lang"
+              );
+
+
+            changeLanguage(
+              language
+            );
+
+          }
         );
 
       }
     );
 
-  });
+}
 
 
 /* =========================================================
-   8. DONATION PROGRESS
+   17. DONATION PROGRESS
 ========================================================= */
 
-/*
-   실제 현재 모금액
-
-   예:
-   500000
-   = 50만원
-
-   현재는 0원
-*/
-
 const CURRENT_AMOUNT = 0;
-
-
-/*
-   한국 원화 기준 목표금액
-
-   10,000,000원
-*/
 
 const FUND_TARGET = 10000000;
 
@@ -1208,20 +1616,27 @@ function updateFundProgress() {
 
 
 /* =========================================================
-   9. ACCOUNT COPY
+   18. ACCOUNT COPY
 ========================================================= */
 
-const copyAccountButton =
-  document.getElementById(
-    "copyAccount"
-  );
+function initializeAccountCopy() {
+
+  const copyAccountButton =
+    document.getElementById(
+      "copyAccount"
+    );
 
 
-if (copyAccountButton) {
+  if (!copyAccountButton) {
+
+    return;
+
+  }
+
 
   copyAccountButton.addEventListener(
     "click",
-    async function () {
+    async function() {
 
       const accountNumber =
         "1002149842668";
@@ -1243,7 +1658,7 @@ if (copyAccountButton) {
 
 
         setTimeout(
-          function () {
+          function() {
 
             copyAccountButton.textContent =
               originalText;
@@ -1254,8 +1669,6 @@ if (copyAccountButton) {
 
 
       } catch (error) {
-
-        /* 오래된 브라우저 대응 */
 
         const textArea =
           document.createElement(
@@ -1310,7 +1723,7 @@ if (copyAccountButton) {
 
 
         setTimeout(
-          function () {
+          function() {
 
             copyAccountButton.textContent =
               "계좌번호 복사";
@@ -1328,25 +1741,380 @@ if (copyAccountButton) {
 
 
 /* =========================================================
-   10. ONLINE PAYMENT
+   19. PAYMENT SERVER
 ========================================================= */
 
-const paymentButton =
-  document.getElementById(
-    "paymentButton"
-  );
+/*
+   여기에 실제 결제 서버 주소 입력
+
+   예:
+
+   const PAYMENT_SERVER =
+     "https://payment.danbi.com";
+
+*/
+
+const PAYMENT_SERVER =
+  "https://실제-결제서버주소";
 
 
-if (paymentButton) {
+async function startPayPalPayment() {
 
-  paymentButton.addEventListener(
-    "click",
-    function () {
+  try {
 
-      alert(
-        "온라인 결제 시스템을 준비하고 있습니다.\n\n" +
-        "현재는 계좌이체를 이용해주세요."
+    const response =
+      await fetch(
+        `${PAYMENT_SERVER}/api/paypal/create-order`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+
+            amount: 100,
+
+            currency: "USD"
+
+          })
+
+        }
       );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok || !data.success) {
+
+      throw new Error(
+        data.message ||
+        "PayPal 주문 생성 실패"
+      );
+
+    }
+
+
+    console.log(
+      "PayPal Order ID:",
+      data.orderID
+    );
+
+
+    // 여기서 PayPal 결제창으로 이동
+    // 또는 PayPal SDK에 orderID 전달
+
+  } catch (error) {
+
+    console.error(
+      "PayPal 결제 오류:",
+      error
+    );
+
+    alert(
+      "PayPal 결제를 시작할 수 없습니다."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   20. PAYPAL
+========================================================= */
+
+function initializePayPal() {
+
+  const paypalButton =
+    document.getElementById(
+      "paypalButton"
+    );
+
+
+  if (!paypalButton) {
+
+    return;
+
+  }
+
+
+  paypalButton.addEventListener(
+    "click",
+    async function() {
+
+      try {
+
+        const amountKRW =
+          selectedDonationAmountKRW;
+
+
+        const amountUSD =
+          paypalDonationAmounts[
+            amountKRW
+          ];
+
+
+        if (
+          !amountUSD
+        ) {
+
+          throw new Error(
+            "선택한 후원금액을 확인해주세요."
+          );
+
+        }
+
+
+        paypalButton.disabled =
+          true;
+
+
+        paypalButton.textContent =
+          "PayPal 결제 준비 중...";
+
+
+        const response =
+          await fetch(
+
+            PAYMENT_SERVER +
+            "/api/paypal/create-order",
+
+            {
+
+              method:
+                "POST",
+
+              headers: {
+
+                "Content-Type":
+                  "application/json"
+
+              },
+
+              body:
+                JSON.stringify({
+
+                  amount:
+                    amountUSD,
+
+                  currency:
+                    "USD"
+
+                })
+
+            }
+
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "결제 서버 연결에 실패했습니다."
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !data.success
+        ) {
+
+          throw new Error(
+            data.message ||
+            "PayPal 주문 생성 실패"
+          );
+
+        }
+
+
+        /*
+           PayPal SDK가 HTML에 들어있는 경우
+        */
+
+        if (
+          window.paypal
+        ) {
+
+          const container =
+            document.getElementById(
+              "paypal-button-container"
+            );
+
+
+          if (!container) {
+
+            throw new Error(
+              "PayPal 버튼 영역을 찾을 수 없습니다."
+            );
+
+          }
+
+
+          container.innerHTML =
+            "";
+
+
+          window.paypal
+            .Buttons({
+
+              createOrder:
+                function() {
+
+                  return data.orderID;
+
+                },
+
+
+              onApprove:
+                async function(
+                  paypalData
+                ) {
+
+                  try {
+
+                    const captureResponse =
+                      await fetch(
+
+                        PAYMENT_SERVER +
+                        "/api/paypal/capture-order",
+
+                        {
+
+                          method:
+                            "POST",
+
+                          headers: {
+
+                            "Content-Type":
+                              "application/json"
+
+                          },
+
+                          body:
+                            JSON.stringify({
+
+                              orderID:
+                                paypalData.orderID
+
+                            })
+
+                        }
+
+                      );
+
+
+                    const result =
+                      await captureResponse.json();
+
+
+                    if (
+                      result.success
+                    ) {
+
+                      alert(
+                        "단비에게 후원해주셔서 감사합니다. ❤️"
+                      );
+
+                    } else {
+
+                      alert(
+                        result.message ||
+                        "결제 승인에 실패했습니다."
+                      );
+
+                    }
+
+                  } catch (error) {
+
+                    console.error(
+                      error
+                    );
+
+
+                    alert(
+                      "결제 승인 처리 중 오류가 발생했습니다."
+                    );
+
+                  }
+
+                },
+
+
+              onCancel:
+                function() {
+
+                  alert(
+                    "PayPal 결제가 취소되었습니다."
+                  );
+
+                },
+
+
+              onError:
+                function(error) {
+
+                  console.error(
+                    "PayPal Error:",
+                    error
+                  );
+
+
+                  alert(
+                    "PayPal 결제 중 오류가 발생했습니다."
+                  );
+
+                }
+
+            })
+
+            .render(
+              "#paypal-button-container"
+            );
+
+
+          return;
+
+        }
+
+
+        alert(
+          "PayPal SDK가 아직 연결되지 않았습니다."
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "PayPal Error:",
+          error
+        );
+
+
+        alert(
+          error.message ||
+          "PayPal 결제를 시작할 수 없습니다."
+        );
+
+
+      } finally {
+
+        paypalButton.disabled =
+          false;
+
+
+        paypalButton.textContent =
+          "🅿️ PayPal로 후원하기";
+
+      }
 
     }
   );
@@ -1355,39 +2123,274 @@ if (paymentButton) {
 
 
 /* =========================================================
-   11. INITIAL LANGUAGE
+   21. NAVER PAY
 ========================================================= */
 
-const savedLanguage =
-  localStorage.getItem(
-    "danbiLanguage"
+function initializeNaverPay() {
+
+  const naverPayButton =
+    document.getElementById(
+      "naverPayButton"
+    );
+
+
+  if (!naverPayButton) {
+
+    return;
+
+  }
+
+
+  naverPayButton.addEventListener(
+    "click",
+    async function() {
+
+      try {
+
+        const amount =
+          selectedDonationAmountKRW;
+
+
+        if (
+          amount < 10
+        ) {
+
+          alert(
+            "네이버페이는 10원 이상 후원할 수 있습니다."
+          );
+
+          return;
+
+        }
+
+
+        naverPayButton.disabled =
+          true;
+
+
+        naverPayButton.textContent =
+          "네이버페이 결제 준비 중...";
+
+
+        const response =
+          await fetch(
+
+            PAYMENT_SERVER +
+            "/api/naverpay/reserve",
+
+            {
+
+              method:
+                "POST",
+
+              headers: {
+
+                "Content-Type":
+                  "application/json"
+
+              },
+
+              body:
+                JSON.stringify({
+
+                  amount:
+                    amount,
+
+                  currency:
+                    "KRW"
+
+                })
+
+            }
+
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "결제 서버 연결에 실패했습니다."
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !data.success
+        ) {
+
+          throw new Error(
+            data.message ||
+            "네이버페이 예약 실패"
+          );
+
+        }
+
+
+        /*
+           네이버페이 SDK가 연결된 경우
+        */
+
+        if (
+          window.Naver &&
+          window.Naver.Pay
+        ) {
+
+          const naverPay =
+            window.Naver.Pay.create({
+
+              mode:
+                "development",
+
+              clientId:
+                "HN3GGCMDdTgGUfl0kFCo"
+
+            });
+
+
+          naverPay.open({
+
+            reserveId:
+              data.reserveId
+
+          });
+
+
+          return;
+
+        }
+
+
+        alert(
+          "네이버페이 SDK가 아직 연결되지 않았습니다."
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Naver Pay Error:",
+          error
+        );
+
+
+        alert(
+          error.message ||
+          "네이버페이 결제를 시작할 수 없습니다."
+        );
+
+
+      } finally {
+
+        naverPayButton.disabled =
+          false;
+
+
+        naverPayButton.textContent =
+          "🟢 네이버페이로 후원하기";
+
+      }
+
+    }
   );
 
-
-const initialLanguage =
-  (
-    savedLanguage &&
-    translations[savedLanguage]
-  )
-    ? savedLanguage
-    : "ko";
-
-
-/*
-   최초 언어 적용
-
-   여기서 번역과 화폐를
-   한 번에 적용합니다.
-*/
-
-changeLanguage(
-  initialLanguage
-);
+}
 
 
 /* =========================================================
-   12. INITIAL FUND PROGRESS
+   22. PAYMENT BUTTONS INITIALIZE
 ========================================================= */
 
-updateFundProgress(); 
+function initializePayment() {
+
+  initializePayPal();
+
+  initializeNaverPay();
+
+}
+
+
+/* =========================================================
+   23. PAGE INITIALIZATION
+========================================================= */
+
+function initializeDanbiWebsite() {
+
+  /* 언어 버튼 */
+
+  initializeLanguageButtons();
+
+
+  /* 후원금 버튼 */
+
+  initializeDonationAmountButtons();
+
+
+  /* 계좌 복사 */
+
+  initializeAccountCopy();
+
+
+  /* 결제 */
+
+  initializePayment();
+
+
+  /* 저장된 언어 */
+
+  const savedLanguage =
+    localStorage.getItem(
+      "danbiLanguage"
+    );
+
+
+  const initialLanguage =
+    (
+      savedLanguage &&
+      translations[savedLanguage]
+    )
+      ? savedLanguage
+      : "ko";
+
+
+  /* 최초 언어 적용 */
+
+  changeLanguage(
+    initialLanguage
+  );
+
+
+  /* 후원금 진행률 */
+
+  updateFundProgress();
+
+}
+
+
+/* =========================================================
+   24. DOM READY
+========================================================= */
+
+if (
+  document.readyState === "loading"
+) {
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+      initializeDanbiWebsite();
+
+    }
+  );
+
+} else {
+
+  initializeDanbiWebsite();
+
+}
 

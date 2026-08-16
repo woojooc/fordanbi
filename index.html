@@ -29,6 +29,11 @@
   />
 
   <link rel="stylesheet" href="style.css">
+
+<script
+  src="https://www.paypal.com/sdk/js?client-id=BAAahSg55A9s-xQcYUPRYlbsGmbFKB3ZyMICE6Q6rl0rZMA8CIMOiAKvhztmXJDlTsrKMaxYm7ad0tMSPg&currency=USD">
+</script>
+
 </head>
 
 
@@ -866,13 +871,184 @@
           </p>
 
 
-          <button
-            class="primary-button full"
-            id="paymentButton"
-            data-i18n="paymentButton"
-          >
-            ❤️ 온라인 후원하기
-          </button>
+          <div class="payment-method-buttons">
+
+  <!-- =====================================================
+     후원 금액 선택
+===================================================== -->
+
+<!-- =====================================================
+     후원금액 선택
+===================================================== -->
+
+<div class="donation-amount-section">
+
+  <div class="donation-amount-title">
+    <span data-i18n="donationAmountTitle">
+      후원금액을 선택해주세요
+    </span>
+  </div>
+
+
+  <div class="donation-amount-grid">
+
+
+    <!-- 1만원 -->
+
+    <button
+      type="button"
+      class="donation-amount-button active"
+      data-amount="10000"
+    >
+
+      <span class="donation-amount-text"
+      data-donation-label="donation1">
+        1만원
+      </span>
+
+    </button>
+
+
+    <!-- 5만원 -->
+
+    <button
+      type="button"
+      class="donation-amount-button"
+      data-amount="50000"
+    >
+
+      <span class="donation-amount-text"
+      data-donation-label="donation5">
+        5만원
+      </span>
+
+    </button>
+
+
+    <!-- 10만원 -->
+
+    <button
+      type="button"
+      class="donation-amount-button"
+      data-amount="100000"
+    >
+
+      <span class="donation-amount-text"
+      data-donation-label="donation10">
+        10만원
+      </span>
+
+    </button>
+
+
+    <!-- 50만원 -->
+
+    <button
+      type="button"
+      class="donation-amount-button"
+      data-amount="500000"
+    >
+
+      <span class="donation-amount-text"
+      data-donation-label="donation50">
+        50만원
+      </span>
+
+    </button>
+
+
+    <!-- 100만원 -->
+
+    <button
+      type="button"
+      class="donation-amount-button"
+      data-amount="1000000"
+    >
+
+      <span class="donation-amount-text"
+      data-donation-label="donation100">
+        100만원
+      </span>
+
+    </button>
+
+
+    <!-- 300만원 -->
+
+    <button
+      type="button"
+      class="donation-amount-button"
+      data-amount="3000000"
+    >
+
+      <span class="donation-amount-text"
+      data-donation-label="donation300">
+        300만원
+      </span>
+
+    </button>
+
+
+    <!-- 500만원 -->
+
+    <button
+      type="button"
+      class="donation-amount-button"
+      data-amount="5000000"
+    >
+
+      <span class="donation-amount-text"
+      data-donation-label="donation500">
+        500만원
+      </span>
+
+    </button>
+
+
+  </div>
+
+
+  <!-- =================================================
+       선택된 후원금
+  ================================================== -->
+
+  <div class="selected-donation">
+
+    <span data-i18n="selectedDonationLabel">
+      선택한 후원금
+    </span>
+
+    <strong id="selectedDonationAmount">
+      1만원
+    </strong>
+
+  </div>
+
+</div>
+<!---------------------------------------->
+  <div class="payment-buttons">          
+  <button
+    class="primary-button full"
+    id="paypalButton"
+    type="button"
+    data-i18n="paypalButton"
+  >
+    🌎 Donate via PayPal or Card
+  </button>
+
+
+  <button
+    class="primary-button full"
+    id="naverPayButton"
+    type="button"
+    data-i18n="naverPayButton"
+  >
+    🟢 네이버페이로 후원하기
+  </button>
+</div>
+
+<div id="paypal-button-container"></div>
+</div>
 
 
           <p
