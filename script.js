@@ -282,7 +282,9 @@ const translations = {
 
     treatmentRecord4Text:
       "숨을 헐떡이며 누워 지냄. 가바펜틴 진통제 복용"
-,selectedDonationLabel: "선택한 후원금"
+,selectedDonationLabel: "선택한 후원금",
+        paypalButton: "🌎 PayPal로 후원하기",
+      naverPayButton: "🟢 NaverPay로 후원하기"
   },
 
 
@@ -535,8 +537,10 @@ const translations = {
 
     treatmentRecord4Text:
       "Danbi spent most of her time lying down and breathing heavily. Gabapentin was administered for pain relief.",
-      selectedDonationLabel :"Selected Donation"
+      selectedDonationLabel :"Selected Donation",
 
+      paypalButton: "🌎 Donate via Paypal",
+      naverPayButton: "🟢 Donate via NaverPay"
   },
 
 
@@ -790,9 +794,10 @@ const translations = {
     treatmentRecord4Text:
       "Danbi restait principalement allongée et respirait difficilement. De la gabapentine a été administrée pour soulager la douleur."
       ,
-      selectedDonationLabel:"Don sélectionné"
+      selectedDonationLabel:"Don sélectionné",
 
-
+      paypalButton: "🌎 Faire un don via PayPal",
+      naverPayButton: "🟢 Faire un don via NaverPay"
   }
 
 };
