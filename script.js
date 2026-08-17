@@ -352,10 +352,10 @@ const translations = {
       "Recently, Danbi underwent surgery to remove a tumor in the lower abdominal area.",
 
     story3:
-      "However, we were told that the tumor may continue to return and grow even after removal.",
+      "However, even after the tumor is removed, it grows back, and we have been told that this cycle of the tumor returning and growing even larger will continue to repeat.",
 
     story4:
-      "Because continuing surgery became difficult, the procedure was stopped. Danbi is currently receiving pain medication while we consider the next treatment options.",
+      "Ultimately, it became difficult to continue performing multiple surgeries, so further surgery was discontinued. For now, pain medication is being administered while we wait to determine the next course of treatment.",
 
     storyHighlight:
       "💔 Due to the tumor, one of Danbi's hind legs is severely swollen, while the other has wounds and discharge that have caused the skin to become severely irritated.",
@@ -611,10 +611,10 @@ const translations = {
       "Récemment, Danbi a subi une intervention pour retirer une tumeur située dans la partie inférieure de l'abdomen.",
 
     story3:
-      "Cependant, on nous a expliqué que la tumeur pouvait continuer à réapparaître et à grossir malgré son retrait.",
+      "Cependant, même après l’ablation de la tumeur, celle-ci repousse, et il nous a été expliqué que ce cycle, au cours duquel la tumeur réapparaît puis grossit davantage, risque de se répéter.",
 
     story4:
-      "Il est finalement devenu difficile de poursuivre les interventions. L'opération a donc été interrompue et Danbi reçoit actuellement des antidouleurs pendant que nous étudions les prochaines possibilités de traitement.",
+      "Finalement, il est devenu difficile de continuer à subir plusieurs interventions chirurgicales. Les opérations supplémentaires ont donc été interrompues. Pour le moment, des médicaments antidouleur sont administrés, tandis que nous attendons de déterminer la prochaine étape du traitement.",
 
     storyHighlight:
       "💔 En raison de la tumeur, l'une des pattes arrière de Danbi est fortement gonflée, tandis que l'autre présente des blessures et des écoulements qui ont fortement irrité la peau.",
