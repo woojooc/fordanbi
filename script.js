@@ -1759,7 +1759,7 @@ function initializeAccountCopy() {
 ========================================================= */
 
 const PAYMENT_SERVER =
-  "http://localhost:3000";
+  "http://13.209.73.239:3000";
 
 /* =========================================================
    20. PAYPAL
@@ -2531,29 +2531,26 @@ function initializePayPal() {
 function initializeNaverPay() {
 
   const naverPayButton =
-    document.getElementById(
-      "naverPayButton"
-    );
+    document.getElementById("naverPayButton");
 
 
   if (!naverPayButton) {
-
     return;
-
   }
 
 
   naverPayButton.addEventListener(
     "click",
-    async function() {
+    async function () {
 
       try {
 
         const amount =
-          selectedDonationAmountKRW;
+          Number(selectedDonationAmountKRW);
 
 
         if (
+          !Number.isInteger(amount) ||
           amount < 10
         ) {
 
@@ -2574,101 +2571,85 @@ function initializeNaverPay() {
           "네이버페이 결제 준비 중...";
 
 
+        console.log(
+          "NaverPay amount:",
+          amount
+        );
+
+
         const response =
           await fetch(
-
             PAYMENT_SERVER +
             "/api/naverpay/reserve",
-
             {
 
               method:
                 "POST",
 
               headers: {
-
                 "Content-Type":
                   "application/json"
-
               },
 
               body:
                 JSON.stringify({
-
                   amount:
-                    amount,
-
-                  currency:
-                    "KRW"
-
+                    amount
                 })
 
             }
-
           );
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            "결제 서버 연결에 실패했습니다."
-          );
-
-        }
 
 
         const data =
           await response.json();
 
 
+        console.log(
+          "NaverPay reserve:",
+          data
+        );
+
+
         if (
+          !response.ok ||
           !data.success
         ) {
 
           throw new Error(
             data.message ||
-            "네이버페이 예약 실패"
+            "네이버페이 결제 예약에 실패했습니다."
           );
 
         }
 
 
         /*
-           네이버페이 SDK가 연결된 경우
-        */
+         * 여기까지 오면
+         *
+         * 서버 → 네이버페이
+         * 결제 예약 성공
+         *
+         * reserveId 확보
+         */
 
-        if (
-          window.Naver &&
-          window.Naver.Pay
-        ) {
-
-          const naverPay =
-            window.Naver.Pay.create({
-
-              mode:
-                "development",
-
-              clientId:
-                "HN3GGCMDdTgGUfl0kFCo"
-
-            });
+        console.log(
+          "NaverPay reserveId:",
+          data.reserveId
+        );
 
 
-          naverPay.open({
-
-            reserveId:
-              data.reserveId
-
-          });
-
-
-          return;
-
-        }
-
+        /*
+         * 결제창 호출
+         *
+         * SDK 연결 후 이 부분에서
+         * 네이버페이 결제창을 호출한다.
+         */
 
         alert(
-          "네이버페이 SDK가 아직 연결되지 않았습니다."
+          "네이버페이 결제 예약이 완료되었습니다.\n\n" +
+          "reserveId: " +
+          data.reserveId
         );
 
 
@@ -2693,7 +2674,9 @@ function initializeNaverPay() {
 
 
         naverPayButton.textContent =
-          getPaymentButtonText("naverPayButton");
+          getPaymentButtonText(
+            "naverPayButton"
+          );
 
       }
 
@@ -2701,7 +2684,6 @@ function initializeNaverPay() {
   );
 
 }
-
 
 /* =========================================================
    22. PAYMENT BUTTONS INITIALIZE
@@ -2804,3 +2786,5 @@ function getPaymentButtonText(key) {
   return translations[language]?.[key] || "";
 
 }
+
+///// 네이버 페이 버튼 클릭 이벤트
