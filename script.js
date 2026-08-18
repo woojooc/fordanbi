@@ -1770,7 +1770,7 @@ function initializeAccountCopy() {
 */
 
 const PAYMENT_SERVER =
-  "http://localhost:5501";
+  "http://localhost:3000";
 
 
 async function startPayPalPayment() {
