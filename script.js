@@ -283,7 +283,7 @@ const translations = {
     treatmentRecord4Text:
       "숨을 헐떡이며 누워 지냄. 가바펜틴 진통제 복용"
 ,selectedDonationLabel: "선택한 후원금",
-        paypalButton: "🌎 PayPal로 후원하기",
+        paypalButton: "🌎 PayPal로 후원하기 (해외계정만가능) ",
       naverPayButton: "🟢 NaverPay로 후원하기",
       recheckaccount:
   "후원 전 계좌정보를 다시 한번 확인해주세요.",
