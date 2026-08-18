@@ -2077,8 +2077,8 @@ function initializePayPal() {
         throw new Error(
           "PayPal SDK가 아직 로드되지 않았습니다."
         );
-
       }
+
 
 
       /* -----------------------------------------------
@@ -2161,6 +2161,13 @@ function initializePayPal() {
          PayPal Smart Button
       ------------------------------------------------ */
 
+  
+
+
+          /* -----------------------------------------------
+         PayPal Smart Button
+      ------------------------------------------------ */
+
       window.paypal
         .Buttons({
 
@@ -2180,158 +2187,26 @@ function initializePayPal() {
 
 
           /* -----------------------------------------
-             Order 생성
+             PayPal Order
           ----------------------------------------- */
 
-          createOrder:
-            function() {
+          createOrder: function() {
 
-              return data.orderID;
+            return data.orderID;
 
-            },
+          },
 
 
           /* -----------------------------------------
              결제 승인
           ----------------------------------------- */
 
-          onApprove:
-            async function(paypalData) {
+          onApprove: async function(paypalData) {
 
-              try {
+            try {
 
-                container.style.pointerEvents =
-                  "none";
-
-
-                loading.style.display =
-                  "block";
-
-
-                loading.textContent =
-                  "결제를 확인하고 있습니다...";
-
-
-                const captureResponse =
-                  await fetch(
-
-                    PAYMENT_SERVER +
-                    "/api/paypal/capture-order",
-
-                    {
-
-                      method: "POST",
-
-                      headers: {
-
-                        "Content-Type":
-                          "application/json"
-
-                      },
-
-                      body:
-                        JSON.stringify({
-
-                          orderID:
-                            paypalData.orderID
-
-                        })
-
-                    }
-
-                  );
-
-
-                const result =
-                  await captureResponse.json();
-
-
-                if (
-                  !result.success
-                ) {
-
-                  throw new Error(
-                    result.message ||
-                    "결제 승인에 실패했습니다."
-                  );
-
-                }
-
-
-                loading.textContent =
-                  "후원이 완료되었습니다. ❤️";
-
-
-                setTimeout(
-                  function() {
-
-                    closePayPalModal();
-
-
-                    alert(
-                      "단비에게 후원해주셔서 감사합니다. ❤️"
-                    );
-
-                  },
-                  700
-                );
-
-
-              } catch (error) {
-
-                console.error(
-                  "PayPal Capture Error:",
-                  error
-                );
-
-
-                container.style.pointerEvents =
-                  "auto";
-
-
-                loading.style.display =
-                  "block";
-
-
-                loading.textContent =
-                  "결제 승인 처리 중 오류가 발생했습니다.";
-
-
-                alert(
-                  error.message ||
-                  "결제 승인 처리 중 오류가 발생했습니다."
-                );
-
-              }
-
-            },
-
-
-          /* -----------------------------------------
-             결제 취소
-          ----------------------------------------- */
-
-          onCancel:
-            function() {
-
-              console.log(
-                "PayPal payment cancelled"
-              );
-
-            },
-
-
-          /* -----------------------------------------
-             결제 오류
-          ----------------------------------------- */
-
-          onError:
-            function(error) {
-
-              console.error(
-                "PayPal Error:",
-                error
-              );
+              container.style.pointerEvents =
+                "none";
 
 
               loading.style.display =
@@ -2339,9 +2214,143 @@ function initializePayPal() {
 
 
               loading.textContent =
-                "PayPal 결제 중 오류가 발생했습니다.";
+                "결제를 확인하고 있습니다...";
+
+
+              const captureResponse =
+                await fetch(
+
+                  PAYMENT_SERVER +
+                  "/api/paypal/capture-order",
+
+                  {
+
+                    method: "POST",
+
+                    headers: {
+
+                      "Content-Type":
+                        "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                      orderID:
+                        paypalData.orderID
+
+                    })
+
+                  }
+
+                );
+
+
+              if (!captureResponse.ok) {
+
+                throw new Error(
+                  "결제 승인 서버 연결에 실패했습니다."
+                );
+
+              }
+
+
+              const result =
+                await captureResponse.json();
+
+
+              if (!result.success) {
+
+                throw new Error(
+                  result.message ||
+                  "결제 승인에 실패했습니다."
+                );
+
+              }
+
+
+              loading.textContent =
+                "후원이 완료되었습니다. ❤️";
+
+
+              setTimeout(
+                function() {
+
+                  closePayPalModal();
+
+
+                  alert(
+                    "단비에게 후원해주셔서 감사합니다. ❤️"
+                  );
+
+                },
+                700
+              );
+
+
+            } catch (error) {
+
+              console.error(
+                "PayPal Capture Error:",
+                error
+              );
+
+
+              container.style.pointerEvents =
+                "auto";
+
+
+              loading.style.display =
+                "block";
+
+
+              loading.textContent =
+                "결제 승인 처리 중 오류가 발생했습니다.";
+
+
+              alert(
+                error.message ||
+                "결제 승인 처리 중 오류가 발생했습니다."
+              );
 
             }
+
+          },
+
+
+          /* -----------------------------------------
+             결제 취소
+          ----------------------------------------- */
+
+          onCancel: function() {
+
+            console.log(
+              "PayPal payment cancelled"
+            );
+
+          },
+
+
+          /* -----------------------------------------
+             결제 오류
+          ----------------------------------------- */
+
+          onError: function(error) {
+
+            console.error(
+              "PayPal Error:",
+              error
+            );
+
+
+            loading.style.display =
+              "block";
+
+
+            loading.textContent =
+              "PayPal 결제 중 오류가 발생했습니다.";
+
+          }
 
         })
         .render(
