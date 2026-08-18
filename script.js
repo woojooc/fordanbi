@@ -1770,7 +1770,7 @@ function initializeAccountCopy() {
 */
 
 const PAYMENT_SERVER =
-  "https://실제-결제서버주소";
+  "http://localhost:5501";
 
 
 async function startPayPalPayment() {
@@ -1779,7 +1779,7 @@ async function startPayPalPayment() {
 
     const response =
       await fetch(
-        `${PAYMENT_SERVER}/api/paypal/create-order`,
+        `${PAYMENT_SERVER}/api/paypaㅇl/create-order`,
         {
           method: "POST",
 
