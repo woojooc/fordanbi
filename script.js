@@ -1772,74 +1772,9 @@ function initializeAccountCopy() {
 const PAYMENT_SERVER =
   "http://localhost:3000";
 
-
-async function startPayPalPayment() {
-
-  try {
-
-    const response =
-      await fetch(
-        `${PAYMENT_SERVER}/api/paypaㅇl/create-order`,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json"
-          },
-
-          body: JSON.stringify({
-
-            amount: 100,
-
-            currency: "USD"
-
-          })
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok || !data.success) {
-
-      throw new Error(
-        data.message ||
-        "PayPal 주문 생성 실패"
-      );
-
-    }
-
-
-    console.log(
-      "PayPal Order ID:",
-      data.orderID
-    );
-
-
-    // 여기서 PayPal 결제창으로 이동
-    // 또는 PayPal SDK에 orderID 전달
-
-  } catch (error) {
-
-    console.error(
-      "PayPal 결제 오류:",
-      error
-    );
-
-    alert(
-      "PayPal 결제를 시작할 수 없습니다."
-    );
-
-  }
-
-}
-
-
 /* =========================================================
    20. PAYPAL
+   팝업 모달 방식
 ========================================================= */
 
 function initializePayPal() {
@@ -1857,291 +1792,697 @@ function initializePayPal() {
   }
 
 
-  paypalButton.addEventListener(
-    "click",
-    async function() {
+  /* -------------------------------------------------------
+     PayPal 팝업 모달 생성
+  ------------------------------------------------------- */
 
-      try {
+  function createPayPalModal() {
 
-        const amountKRW =
-          selectedDonationAmountKRW;
+    /* 이미 존재하면 다시 만들지 않음 */
+
+    if (
+      document.getElementById(
+        "paypalDonationModal"
+      )
+    ) {
+
+      return;
+
+    }
 
 
-        const amountUSD =
-          paypalDonationAmounts[
-            amountKRW
-          ];
+    const modal =
+      document.createElement("div");
 
+
+    modal.id =
+      "paypalDonationModal";
+
+
+    modal.innerHTML = `
+
+      <div class="paypal-modal-overlay">
+
+        <div
+          class="paypal-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="paypalModalTitle"
+        >
+
+          <button
+            type="button"
+            class="paypal-modal-close"
+            id="paypalModalClose"
+            aria-label="Close"
+          >
+            ×
+          </button>
+
+
+          <div class="paypal-modal-header">
+
+            <div class="paypal-modal-icon">
+              🌎
+            </div>
+
+            <h2 id="paypalModalTitle">
+              PayPal 후원
+            </h2>
+
+            <p
+              id="paypalModalDescription"
+              class="paypal-modal-description"
+            >
+              단비의 치료를 위해 후원해주셔서 감사합니다. ❤️
+            </p>
+
+          </div>
+
+
+          <div class="paypal-selected-amount">
+
+            <span
+              id="paypalSelectedAmountLabel"
+            >
+              선택한 후원금
+            </span>
+
+            <strong
+              id="paypalSelectedAmount"
+            >
+              -
+            </strong>
+
+          </div>
+
+
+          <div
+            id="paypalPaymentLoading"
+            class="paypal-payment-loading"
+          >
+            PayPal 결제를 준비하고 있습니다...
+          </div>
+
+
+          <div
+            id="paypal-button-container"
+            class="paypal-button-container"
+          ></div>
+
+
+          <p
+            id="paypalPaymentNotice"
+            class="paypal-payment-notice"
+          >
+            PayPal 결제창에서 결제를 진행해주세요.
+          </p>
+
+
+        </div>
+
+      </div>
+
+    `;
+
+
+    document.body.appendChild(
+      modal
+    );
+
+
+    /* 닫기 버튼 */
+
+    const closeButton =
+      document.getElementById(
+        "paypalModalClose"
+      );
+
+
+    closeButton.addEventListener(
+      "click",
+      closePayPalModal
+    );
+
+
+    /* 배경 클릭 */
+
+    const overlay =
+      modal.querySelector(
+        ".paypal-modal-overlay"
+      );
+
+
+    overlay.addEventListener(
+      "click",
+      function(event) {
 
         if (
-          !amountUSD
+          event.target === overlay
         ) {
 
-          throw new Error(
-            "선택한 후원금액을 확인해주세요."
-          );
+          closePayPalModal();
 
         }
 
-
-        paypalButton.disabled =
-          true;
-
-
-        paypalButton.textContent =
-          "PayPal 결제 준비 중...";
+      }
+    );
 
 
-        const response =
-          await fetch(
+    /* ESC */
 
-            PAYMENT_SERVER +
-            "/api/paypal/create-order",
+    document.addEventListener(
+      "keydown",
+      function(event) {
 
-            {
+        if (
+          event.key === "Escape" &&
+          modal.classList.contains("is-open")
+        ) {
 
-              method:
-                "POST",
-
-              headers: {
-
-                "Content-Type":
-                  "application/json"
-
-              },
-
-              body:
-                JSON.stringify({
-
-                  amount:
-                    amountUSD,
-
-                  currency:
-                    "USD"
-
-                })
-
-            }
-
-          );
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            "결제 서버 연결에 실패했습니다."
-          );
+          closePayPalModal();
 
         }
 
+      }
+    );
 
-        const data =
-          await response.json();
-
-
-        if (
-          !data.success
-        ) {
-
-          throw new Error(
-            data.message ||
-            "PayPal 주문 생성 실패"
-          );
-
-        }
+  }
 
 
-        /*
-           PayPal SDK가 HTML에 들어있는 경우
-        */
+  /* -------------------------------------------------------
+     팝업 열기
+  ------------------------------------------------------- */
 
-        if (
-          window.paypal
-        ) {
+  function openPayPalModal() {
 
-          const container =
-            document.getElementById(
-              "paypal-button-container"
-            );
+    createPayPalModal();
 
 
-          if (!container) {
+    const modal =
+      document.getElementById(
+        "paypalDonationModal"
+      );
 
-            throw new Error(
-              "PayPal 버튼 영역을 찾을 수 없습니다."
-            );
+
+    const amountElement =
+      document.getElementById(
+        "paypalSelectedAmount"
+      );
+
+
+    const labelElement =
+      document.getElementById(
+        "paypalSelectedAmountLabel"
+      );
+
+
+    const language =
+      getCurrentLanguage();
+
+
+    amountElement.textContent =
+      formatDonationAmount(
+        selectedDonationAmountKRW,
+        language
+      );
+
+
+    if (
+      translations[language]?.selectedDonationLabel
+    ) {
+
+      labelElement.textContent =
+        translations[
+          language
+        ].selectedDonationLabel;
+
+    }
+
+
+    const container =
+      document.getElementById(
+        "paypal-button-container"
+      );
+
+
+    const loading =
+      document.getElementById(
+        "paypalPaymentLoading"
+      );
+
+
+    container.innerHTML =
+      "";
+
+
+    loading.style.display =
+      "block";
+
+
+    modal.classList.add(
+      "is-open"
+    );
+
+
+    /*
+       배경 스크롤 방지
+
+       기존 페이지가 맨 위로 올라가는 문제도
+       여기서 같이 차단
+    */
+
+    document.body.classList.add(
+      "paypal-modal-open"
+    );
+
+
+    /*
+       PayPal SDK 확인
+    */
+
+    if (
+      !window.paypal
+    ) {
+
+      loading.textContent =
+        "PayPal 결제 서비스를 불러오지 못했습니다.";
+
+      return;
+
+    }
+
+
+    initializePayPalButtons();
+
+  }
+
+
+  /* -------------------------------------------------------
+     PayPal 실제 버튼 생성
+  ------------------------------------------------------- */
+
+  async function initializePayPalButtons() {
+
+    const loading =
+      document.getElementById(
+        "paypalPaymentLoading"
+      );
+
+
+    const container =
+      document.getElementById(
+        "paypal-button-container"
+      );
+
+
+    try {
+
+      const amountUSD =
+        paypalDonationAmounts[
+          selectedDonationAmountKRW
+        ];
+
+
+      if (
+        !amountUSD
+      ) {
+
+        throw new Error(
+          "선택한 후원금액을 확인해주세요."
+        );
+
+      }
+
+
+      /*
+         서버에서 PayPal Order 생성
+      */
+
+      const response =
+        await fetch(
+
+          PAYMENT_SERVER +
+          "/api/paypal/create-order",
+
+          {
+
+            method:
+              "POST",
+
+            headers: {
+
+              "Content-Type":
+                "application/json"
+
+            },
+
+            body:
+              JSON.stringify({
+
+                amount:
+                  amountUSD,
+
+                currency:
+                  "USD"
+
+              })
 
           }
 
-
-          container.innerHTML =
-            "";
+        );
 
 
-          window.paypal
-            .Buttons({
+      if (!response.ok) {
 
-              createOrder:
-                function() {
+        throw new Error(
+          "결제 서버 연결에 실패했습니다."
+        );
 
-                  return data.orderID;
+      }
 
-                },
-              style: {
-                  layout: "vertical",
-                  color: "gold",
-                  shape: "pill",
-                  label: "paypal",
-                  tagline: false
-                },  
 
-              onApprove:
-                async function(
-                  paypalData
+      const data =
+        await response.json();
+
+
+      if (
+        !data.success
+      ) {
+
+        throw new Error(
+          data.message ||
+          "PayPal 주문 생성에 실패했습니다."
+        );
+
+      }
+
+
+      console.log(
+        "PayPal Order ID:",
+        data.orderID
+      );
+
+
+      /*
+         로딩 제거
+      */
+
+      loading.style.display =
+        "none";
+
+
+      /*
+         기존 버튼 제거
+      */
+
+      container.innerHTML =
+        "";
+
+
+      /*
+         PayPal Smart Button 생성
+      */
+
+      window.paypal
+        .Buttons({
+
+          style: {
+
+            layout:
+              "vertical",
+
+            color:
+              "gold",
+
+            shape:
+              "pill",
+
+            label:
+              "paypal",
+
+            tagline:
+              false
+
+          },
+
+
+          createOrder:
+            function() {
+
+              return data.orderID;
+
+            },
+
+
+          onApprove:
+            async function(
+              paypalData
+            ) {
+
+              try {
+
+                container.style.pointerEvents =
+                  "none";
+
+
+                loading.style.display =
+                  "block";
+
+
+                loading.textContent =
+                  "결제를 확인하고 있습니다...";
+
+
+                const captureResponse =
+                  await fetch(
+
+                    PAYMENT_SERVER +
+                    "/api/paypal/capture-order",
+
+                    {
+
+                      method:
+                        "POST",
+
+                      headers: {
+
+                        "Content-Type":
+                          "application/json"
+
+                      },
+
+                      body:
+                        JSON.stringify({
+
+                          orderID:
+                            paypalData.orderID
+
+                        })
+
+                    }
+
+                  );
+
+
+                const result =
+                  await captureResponse.json();
+
+
+                if (
+                  result.success
                 ) {
 
-                  try {
-
-                    const captureResponse =
-                      await fetch(
-
-                        PAYMENT_SERVER +
-                        "/api/paypal/capture-order",
-
-                        {
-
-                          method:
-                            "POST",
-
-                          headers: {
-
-                            "Content-Type":
-                              "application/json"
-
-                          },
-
-                          body:
-                            JSON.stringify({
-
-                              orderID:
-                                paypalData.orderID
-
-                            })
-
-                        }
-
-                      );
+                  loading.textContent =
+                    "후원이 완료되었습니다. ❤️";
 
 
-                    const result =
-                      await captureResponse.json();
+                  setTimeout(
+                    function() {
 
+                      closePayPalModal();
 
-                    if (
-                      result.success
-                    ) {
 
                       alert(
                         "단비에게 후원해주셔서 감사합니다. ❤️"
                       );
 
-                    } else {
-
-                      alert(
-                        result.message ||
-                        "결제 승인에 실패했습니다."
-                      );
-
-                    }
-
-                  } catch (error) {
-
-                    console.error(
-                      error
-                    );
-
-
-                    alert(
-                      "결제 승인 처리 중 오류가 발생했습니다."
-                    );
-
-                  }
-
-                },
-
-
-              onCancel:
-                function() {
-
-                  alert(
-                    "PayPal 결제가 취소되었습니다."
-                  );
-
-                },
-
-
-              onError:
-                function(error) {
-
-                  console.error(
-                    "PayPal Error:",
-                    error
+                    },
+                    700
                   );
 
 
-                  alert(
-                    "PayPal 결제 중 오류가 발생했습니다."
+                } else {
+
+                  throw new Error(
+                    result.message ||
+                    "결제 승인에 실패했습니다."
                   );
 
                 }
 
-            })
 
-            .render(
-              "#paypal-button-container"
-            );
+              } catch (error) {
 
-
-          return;
-
-        }
+                console.error(
+                  "PayPal Capture Error:",
+                  error
+                );
 
 
-        alert(
-          "PayPal SDK가 아직 연결되지 않았습니다."
+                container.style.pointerEvents =
+                  "auto";
+
+
+                loading.style.display =
+                  "block";
+
+
+                loading.textContent =
+                  "결제 승인 처리 중 오류가 발생했습니다.";
+
+
+                alert(
+                  error.message ||
+                  "결제 승인 처리 중 오류가 발생했습니다."
+                );
+
+              }
+
+            },
+
+
+          onCancel:
+            function() {
+
+              console.log(
+                "PayPal payment cancelled"
+              );
+
+            },
+
+
+          onError:
+            function(error) {
+
+              console.error(
+                "PayPal Error:",
+                error
+              );
+
+
+              loading.style.display =
+                "block";
+
+
+              loading.textContent =
+                "PayPal 결제 중 오류가 발생했습니다.";
+
+            }
+
+        })
+
+        .render(
+          "#paypal-button-container"
         );
 
+    } catch (error) {
 
-      } catch (error) {
-
-        console.error(
-          "PayPal Error:",
-          error
-        );
-
-
-        alert(
-          error.message ||
-          "PayPal 결제를 시작할 수 없습니다."
-        );
+      console.error(
+        "PayPal Error:",
+        error
+      );
 
 
-      } finally {
-
-        paypalButton.disabled =
-          false;
+      loading.style.display =
+        "block";
 
 
-        paypalButton.textContent =
-          //"🅿️ PayPal로 후원하기";
-        getPaymentButtonText("paypalButton");
-      }
+      loading.textContent =
+        error.message ||
+        "PayPal 결제를 시작할 수 없습니다.";
+
+    }
+
+  }
+
+
+  /* -------------------------------------------------------
+     팝업 닫기
+  ------------------------------------------------------- */
+
+  function closePayPalModal() {
+
+    const modal =
+      document.getElementById(
+        "paypalDonationModal"
+      );
+
+
+    if (!modal) {
+
+      return;
+
+    }
+
+
+    modal.classList.remove(
+      "is-open"
+    );
+
+
+    document.body.classList.remove(
+      "paypal-modal-open"
+    );
+
+
+    /*
+       PayPal 버튼 제거
+
+       다음에 다시 열었을 때
+       새로운 결제창을 만들기 위함
+    */
+
+    const container =
+      document.getElementById(
+        "paypal-button-container"
+      );
+
+
+    if (container) {
+
+      container.innerHTML =
+        "";
+
+    }
+
+  }
+
+
+  /* -------------------------------------------------------
+     기존 PayPal 후원 버튼 클릭
+  ------------------------------------------------------- */
+
+  paypalButton.addEventListener(
+    "click",
+    function(event) {
+
+      /*
+         href="#" 등으로 인해
+         페이지가 맨 위로 올라가는 것 방지
+      */
+
+      event.preventDefault();
+
+      event.stopPropagation();
+
+
+      openPayPalModal();
 
     }
   );
 
 }
-
 
 /* =========================================================
    21. NAVER PAY
