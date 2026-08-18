@@ -1987,7 +1987,13 @@ function initializePayPal() {
                   return data.orderID;
 
                 },
-
+              style: {
+                  layout: "vertical",
+                  color: "gold",
+                  shape: "pill",
+                  label: "paypal",
+                  tagline: false
+                },  
 
               onApprove:
                 async function(
