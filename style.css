@@ -1809,117 +1809,326 @@ html {
   }
 
 }
-
 /* =========================================================
    PAYPAL MODAL
 ========================================================= */
 
-.paypal-modal {
-  display: none;
+#paypalDonationModal {
+
   position: fixed;
+
   inset: 0;
+
+  width: 100%;
+  height: 100%;
+
   z-index: 99999;
+
+  display: none;
+
 }
 
-.paypal-modal.active {
+
+#paypalDonationModal.is-open {
+
   display: block;
+
 }
 
+
+/* =========================================================
+   MODAL OVERLAY
+========================================================= */
+
+#paypalDonationModal
 .paypal-modal-overlay {
-  position: absolute;
+
+  position: fixed;
+
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(4px);
-}
 
-.paypal-modal-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
 
-  width: min(92%, 460px);
-  max-height: 90vh;
-  overflow-y: auto;
+  display: flex;
 
-  background: #fff;
-  border-radius: 24px;
-  padding: 34px 28px 30px;
+  align-items: center;
 
-  box-shadow:
-    0 25px 80px rgba(0, 0, 0, 0.25);
+  justify-content: center;
+
+  padding: 20px;
 
   box-sizing: border-box;
+
+  background:
+    rgba(0, 0, 0, 0.55);
+
+  overflow-y: auto;
+
 }
 
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+#paypalDonationModal
+.paypal-modal {
+
+  position: relative;
+
+  width: min(
+    460px,
+    100%
+  );
+
+  max-height:
+    calc(100vh - 40px);
+
+  margin: auto;
+
+  padding: 30px 24px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 60px
+    rgba(0, 0, 0, 0.25);
+
+  overflow-y: auto;
+
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+#paypalDonationModal
 .paypal-modal-close {
+
   position: absolute;
-  top: 12px;
-  right: 15px;
 
-  width: 38px;
-  height: 38px;
+  top: 10px;
+  right: 12px;
 
-  border: 0;
+  width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border: none;
+
   background: transparent;
 
   font-size: 32px;
-  line-height: 1;
 
-  color: #777;
+  line-height: 42px;
+
+  text-align: center;
 
   cursor: pointer;
+
+  z-index: 10;
+
 }
 
-.paypal-modal-content {
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+#paypalDonationModal
+.paypal-modal-header {
+
   text-align: center;
+
+  padding-top: 10px;
+
 }
 
+
+#paypalDonationModal
 .paypal-modal-icon {
-  font-size: 38px;
-  margin-bottom: 8px;
+
+  font-size: 40px;
+
+  margin-bottom: 10px;
+
 }
 
-.paypal-modal-content h3 {
-  margin: 0 0 8px;
+
+#paypalDonationModal
+.paypal-modal-header h2 {
+
+  margin: 0 0 10px;
+
   font-size: 24px;
+
 }
 
-.paypal-modal-content p {
-  margin: 0 0 20px;
-  color: #777;
+
+#paypalDonationModal
+.paypal-modal-description {
+
+  margin: 0;
+
+  line-height: 1.6;
+
 }
 
+
+/* =========================================================
+   SELECTED AMOUNT
+========================================================= */
+
+#paypalDonationModal
 .paypal-selected-amount {
-  margin: 0 auto 24px;
-  padding: 14px 18px;
 
-  border-radius: 14px;
-  background: #fff7f2;
+  margin: 24px 0;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 18px;
 
-  gap: 15px;
+  text-align: center;
+
+  border-radius: 16px;
+
+  background: #f7f7f7;
+
 }
 
+
+#paypalDonationModal
 .paypal-selected-amount span {
-  color: #777;
+
+  display: block;
+
+  margin-bottom: 6px;
+
   font-size: 14px;
+
 }
 
+
+#paypalDonationModal
 .paypal-selected-amount strong {
-  font-size: 20px;
+
+  display: block;
+
+  font-size: 28px;
+
 }
 
-#paypal-button-container {
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+#paypalDonationModal
+.paypal-payment-loading {
+
+  padding: 16px;
+
+  text-align: center;
+
+  font-size: 14px;
+
+}
+
+
+/* =========================================================
+   PAYPAL BUTTON
+========================================================= */
+
+#paypalDonationModal
+.paypal-button-container {
+
   width: 100%;
-  min-height: 45px;
+
+  max-width: 100%;
+
 }
 
-/* 팝업이 열렸을 때 뒤쪽 페이지 스크롤 방지 */
+
+/* =========================================================
+   NOTICE
+========================================================= */
+
+#paypalDonationModal
+.paypal-payment-notice {
+
+  margin: 16px 0 0;
+
+  text-align: center;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  opacity: 0.7;
+
+}
+
+
+/* =========================================================
+   BODY SCROLL LOCK
+========================================================= */
 
 body.paypal-modal-open {
+
   overflow: hidden;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+  max-width: 480px
+) {
+
+  #paypalDonationModal
+  .paypal-modal-overlay {
+
+    padding: 12px;
+
+  }
+
+
+  #paypalDonationModal
+  .paypal-modal {
+
+    width: 100%;
+
+    max-height:
+      calc(100vh - 24px);
+
+    padding: 26px 18px;
+
+    border-radius: 20px;
+
+  }
+
+
+  #paypalDonationModal
+  .paypal-modal-header h2 {
+
+    font-size: 21px;
+
+  }
+
+
+  #paypalDonationModal
+  .paypal-selected-amount strong {
+
+    font-size: 24px;
+
+  }
+
 }
