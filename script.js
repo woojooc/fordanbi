@@ -980,7 +980,9 @@ const paypalDonationAmounts = {
   500000: 500,
   1000000: 1000,
   1500000: 1500,
-  2000000: 2000
+  2000000: 2000,
+  3000000: 3000,
+  5000000: 5000
 
 };
 
@@ -1021,46 +1023,34 @@ function getCurrentLanguage() {
    9. FORMAT DONATION AMOUNT
 ========================================================= */
 
-function formatDonationAmount(
-  amountKRW,
-  language
-) {
+function formatDonationAmount(amountKRW, language) {
 
-  const languageAmounts =
-    donationDisplayAmounts[language];
+  if (language === "ko") {
 
-
-  if (
-    languageAmounts &&
-    languageAmounts[amountKRW] !== undefined
-  ) {
-
-    return languageAmounts[amountKRW];
+    return (
+      donationDisplayAmounts.ko[amountKRW]
+      || Number(amountKRW).toLocaleString("ko-KR") + "원"
+    );
 
   }
-
 
   if (language === "en") {
 
-    return "$" +
-      Number(amountKRW)
-        .toLocaleString("en-US");
+    return (
+      donationDisplayAmounts.en[amountKRW]
+      || "$" + Number(amountKRW).toLocaleString("en-US")
+    );
 
   }
-
 
   if (language === "fr") {
 
-    return Number(amountKRW)
-      .toLocaleString("fr-FR") +
-      " €";
+    return (
+      donationDisplayAmounts.fr[amountKRW]
+      || Number(amountKRW).toLocaleString("fr-FR") + " €"
+    );
 
   }
-
-
-  return Number(amountKRW)
-    .toLocaleString("ko-KR") +
-    "원";
 
 }
 
