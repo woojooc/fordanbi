@@ -843,7 +843,7 @@ const currencySettings = {
 
     symbol: "$",
 
-    goal: "$7,300",
+    goal: "$10,000",
 
     current: "$0",
 
@@ -862,7 +862,7 @@ const currencySettings = {
 
     symbol: "€",
 
-    goal: "6 250 €",
+    goal: "7 692 €",
 
     current: "0 €",
 
