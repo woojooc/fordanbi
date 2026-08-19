@@ -1284,7 +1284,77 @@ function initializeDonationAmountButtons() {
 
 }
 
+/* =========================================================
+   CURRENT DONATION TOTAL
+   서버의 실제 후원 누적금액 가져오기
+========================================================= */
 
+let donationTotals = {
+  KRW: 0,
+  USD: 0,
+  EUR: 0
+};
+
+
+async function loadDonationTotal() {
+
+  try {
+
+    const response =
+      await fetch(
+        "https://api.fordanbi.com/api/donations"
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "후원금 API 응답 오류"
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if (!data.success) {
+
+      throw new Error(
+        "후원금 데이터를 가져오지 못했습니다."
+      );
+
+    }
+
+
+    donationTotals.KRW =
+      Number(data.totalKRW) || 0;
+
+
+    donationTotals.USD =
+      Number(data.totalUSD) || 0;
+
+
+    donationTotals.EUR =
+      Number(data.totalEUR) || 0;
+
+
+    updateCurrency(
+      getCurrentLanguage()
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "후원금 누적금액 조회 오류:",
+      error
+    );
+
+  }
+
+}
 /* =========================================================
    14. UPDATE CURRENCY
 ========================================================= */
@@ -1310,22 +1380,49 @@ function updateCurrency(
   }
 
 
-  /* 현재 후원금 */
+ /* 현재 후원금 */
 
-  const currentAmount =
-    document.getElementById(
-      "currentAmount"
-    );
+const currentAmount =
+  document.getElementById(
+    "currentAmount"
+  );
 
 
-  if (currentAmount) {
+if (currentAmount) {
+
+  if (language === "ko") {
 
     currentAmount.textContent =
-      currency.current;
+      Math.round(
+        donationTotals.KRW
+      ).toLocaleString("ko-KR") +
+      "원";
 
   }
 
 
+  else if (language === "en") {
+
+    currentAmount.textContent =
+      "$" +
+      Math.round(
+        donationTotals.USD
+      ).toLocaleString("en-US");
+
+  }
+
+
+  else if (language === "fr") {
+
+    currentAmount.textContent =
+      Math.round(
+        donationTotals.EUR
+      ).toLocaleString("fr-FR") +
+      " €";
+
+  }
+
+}
   /* 상단 목표 */
 
   const goalAmount =
@@ -1618,6 +1715,30 @@ function updateFundProgress() {
     percentage + "%";
 
 }
+/*
+// 최초 언어 적용 
+
+  changeLanguage(
+    initialLanguage
+  );
+
+ // 후원금 진행률 
+
+  updateFundProgress();
+
+
+  // 실제 후원 누적금액 
+
+  loadDonationTotal();
+
+
+  //* 30초마다 후원금 갱신 
+
+  setInterval(
+    loadDonationTotal,
+    30000
+  );
+  */
 
 
 /* =========================================================
@@ -2771,6 +2892,18 @@ function initializeDanbiWebsite() {
   /* 후원금 진행률 */
 
   updateFundProgress();
+
+  /* 실제 후원 누적금액 */
+
+  loadDonationTotal();
+
+
+  /* 30초마다 후원금 갱신 */
+
+  setInterval(
+    loadDonationTotal,
+    30000
+  );
 
 }
 
