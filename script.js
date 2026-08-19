@@ -1759,12 +1759,42 @@ function initializeAccountCopy() {
 ========================================================= */
 
 const PAYMENT_SERVER =
-  "http://13.209.73.239:3000";
+  "https://api.fordanbi.com";
 
 /* =========================================================
    20. PAYPAL
    하나의 팝업 + 하나의 PayPal 버튼만 생성
 ========================================================= */
+
+function waitForPayPalSDK(timeout = 15000) {
+
+  return new Promise((resolve, reject) => {
+
+    const start = Date.now();
+
+    const check = () => {
+
+      if (window.paypal) {
+        resolve(window.paypal);
+        return;
+      }
+
+      if (Date.now() - start >= timeout) {
+        reject(
+          new Error("PayPal SDK 로딩 시간 초과")
+        );
+        return;
+      }
+
+      setTimeout(check, 100);
+
+    };
+
+    check();
+
+  });
+
+}
 
 function initializePayPal() {
 
