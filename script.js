@@ -1433,11 +1433,35 @@ if (currentAmount) {
 
   if (goalAmount) {
 
+  if (language === "ko") {
+
     goalAmount.textContent =
-      currency.goal;
+      FUND_TARGET.toLocaleString("ko-KR") +
+      "원";
 
   }
 
+  else if (language === "en") {
+
+    goalAmount.textContent =
+      "$" +
+      Math.round(
+        FUND_TARGET / 1000
+      ).toLocaleString("en-US");
+
+  }
+
+  else if (language === "fr") {
+
+    goalAmount.textContent =
+      Math.round(
+        FUND_TARGET / 1300
+      ).toLocaleString("fr-FR") +
+      " €";
+
+  }
+
+}
 
   /* 아래쪽 목표 */
 
@@ -1449,10 +1473,35 @@ if (currentAmount) {
 
   if (targetElement) {
 
+  if (language === "ko") {
+
     targetElement.textContent =
-      currency.goal;
+      FUND_TARGET.toLocaleString("ko-KR") +
+      "원";
 
   }
+
+  else if (language === "en") {
+
+    targetElement.textContent =
+      "$" +
+      Math.round(
+        FUND_TARGET / 1000
+      ).toLocaleString("en-US");
+
+  }
+
+  else if (language === "fr") {
+
+    targetElement.textContent =
+      Math.round(
+        FUND_TARGET / 1300
+      ).toLocaleString("fr-FR") +
+      " €";
+
+  }
+
+}
 
 
   /* 현재 후원금 라벨 */
