@@ -2878,9 +2878,10 @@ function initializeNaverPay() {
 /* =========================================================
    22. PAYMENT BUTTONS INITIALIZE
 ========================================================= */
+
 /* =========================================================
-   TOSS PAYMENTS
-   결제창 + 결제 승인
+   TOSS PAYMENTS V2
+   카드 / 간편결제
 ========================================================= */
 
 function initializeToss() {
@@ -2901,6 +2902,10 @@ function initializeToss() {
     async function () {
 
       try {
+
+        /* =================================================
+           선택된 후원금액
+        ================================================= */
 
         const selectedAmount =
           Number(
@@ -2933,7 +2938,7 @@ function initializeToss() {
 
 
         /* =================================================
-           Toss SDK 확인
+           Toss Payments SDK 확인
         ================================================= */
 
         if (
@@ -2949,13 +2954,24 @@ function initializeToss() {
 
 
         /* =================================================
-           Toss Payments 초기화
+           Toss Payments V2 초기화
         ================================================= */
 
         const tossPayments =
           TossPayments(
             TOSS_CLIENT_KEY
           );
+
+
+        /* =================================================
+           V2 결제창 객체 생성
+        ================================================= */
+
+        const payment =
+          tossPayments.payment({
+            customerKey:
+              "ANONYMOUS"
+          });
 
 
         /* =================================================
@@ -2975,8 +2991,15 @@ function initializeToss() {
             .toUpperCase();
 
 
+        /* =================================================
+           현재 언어
+        ================================================= */
+
         const language =
-          getCurrentLanguage();
+          typeof getCurrentLanguage ===
+          "function"
+            ? getCurrentLanguage()
+            : "ko";
 
 
         let customerName =
@@ -2984,8 +3007,7 @@ function initializeToss() {
 
 
         if (
-          language ===
-          "ko"
+          language === "ko"
         ) {
 
           customerName =
@@ -2994,64 +3016,106 @@ function initializeToss() {
         }
 
         else if (
-          language ===
-          "fr"
+          language === "fr"
         ) {
 
           customerName =
-            "Donateur de Danbi";
+            "Soutien de Danbi";
 
         }
 
 
         /* =================================================
-           결제창 호출
+           성공 / 실패 URL
         ================================================= */
 
-        await tossPayments.requestPayment(
-          "카드",
-          {
+        const successUrl =
+          window.location.origin +
+          window.location.pathname +
+          "?toss=success";
 
-            amount:
+
+        const failUrl =
+          window.location.origin +
+          window.location.pathname +
+          "?toss=fail";
+
+
+        /* =================================================
+           V2 결제창 호출
+
+           중요:
+           V1:
+           requestPayment("카드", {
+             amount: 10000
+           })
+
+           V2:
+           requestPayment({
+             method: "CARD",
+             amount: {
+               value: 10000,
+               currency: "KRW"
+             }
+           })
+        ================================================= */
+
+        await payment.requestPayment({
+
+          method:
+            "CARD",
+
+          amount: {
+
+            value:
               selectedAmount,
 
-            orderId:
-              orderId,
+            currency:
+              "KRW"
 
-            orderName:
-              "단비 치료 후원",
+          },
 
-            customerName:
-              customerName,
+          orderId:
+            orderId,
 
-            successUrl:
-              window.location.origin +
-              window.location.pathname +
-              "?toss=success",
+          orderName:
+            "단비 치료 후원",
 
-            failUrl:
-              window.location.origin +
-              window.location.pathname +
-              "?toss=fail"
+          customerName:
+            customerName,
 
-          }
-        );
+          successUrl:
+            successUrl,
 
+          failUrl:
+            failUrl
+
+        });
 
       }
 
       catch (error) {
 
         console.error(
-          "Toss Payments Error:",
+          "Toss Payments V2 Error:",
           error
         );
 
 
+        /* =================================================
+           사용자가 결제창을 닫은 경우
+        ================================================= */
+
         if (
           error &&
-          error.code ===
-          "USER_CANCEL"
+          (
+            error.code ===
+              "USER_CANCEL" ||
+            error.code ===
+              "PAY_PROCESS_CANCELED" ||
+            error.code ===
+              "PAY_PROCESS_ABORTED"
+          )
         ) {
 
           console.log(
@@ -3063,7 +3127,7 @@ function initializeToss() {
         else {
 
           alert(
-            error.message ||
+            error?.message ||
             "결제를 시작할 수 없습니다."
           );
 
@@ -3083,287 +3147,6 @@ function initializeToss() {
 
 }
 
-
-/* =========================================================
-   TOSS PAYMENT RESULT
-   결제 성공 → 서버 승인
-========================================================= */
-
-async function handleTossPaymentResult() {
-
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
-
-
-  const tossResult =
-    params.get(
-      "toss"
-    );
-
-
-  /* =====================================================
-     Toss 결제 결과가 아니면 종료
-  ===================================================== */
-
-  if (
-    !tossResult
-  ) {
-
-    return;
-
-  }
-
-
-  /* =====================================================
-     결제 실패
-  ===================================================== */
-
-  if (
-    tossResult ===
-    "fail"
-  ) {
-
-    const code =
-      params.get(
-        "code"
-      );
-
-    const message =
-      params.get(
-        "message"
-      );
-
-
-    console.error(
-      "Toss 결제 실패:",
-      code,
-      message
-    );
-
-
-    alert(
-      message ||
-      "결제가 취소되었거나 실패했습니다."
-    );
-
-
-    /* URL 정리 */
-
-    window.history.replaceState(
-      {},
-      document.title,
-      window.location.pathname
-    );
-
-
-    return;
-
-  }
-
-
-  /* =====================================================
-     결제 성공
-  ===================================================== */
-
-  if (
-    tossResult !==
-    "success"
-  ) {
-
-    return;
-
-  }
-
-
-  const paymentKey =
-    params.get(
-      "paymentKey"
-    );
-
-  const orderId =
-    params.get(
-      "orderId"
-    );
-
-  const amount =
-    Number(
-      params.get(
-        "amount"
-      )
-    );
-
-
-  /* =====================================================
-     필수값 검증
-  ===================================================== */
-
-  if (
-    !paymentKey ||
-    !orderId ||
-    !Number.isInteger(
-      amount
-    ) ||
-    amount <= 0
-  ) {
-
-    console.error(
-      "Toss 결제 결과값 오류:",
-      {
-        paymentKey,
-        orderId,
-        amount
-      }
-    );
-
-
-    alert(
-      "결제 결과를 확인할 수 없습니다."
-    );
-
-
-    return;
-
-  }
-
-
-  /* =====================================================
-     결제 승인 요청
-  ===================================================== */
-
-  try {
-
-    console.log(
-      "Toss 결제 승인 요청:",
-      {
-        paymentKey,
-        orderId,
-        amount
-      }
-    );
-
-
-    const response =
-      await fetch(
-        "https://api.fordanbi.com/api/toss/confirm",
-        {
-
-          method:
-            "POST",
-
-          headers: {
-
-            "Content-Type":
-              "application/json"
-
-          },
-
-          body:
-            JSON.stringify({
-
-              paymentKey:
-                paymentKey,
-
-              orderId:
-                orderId,
-
-              amount:
-                amount
-
-            })
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    console.log(
-      "Toss 결제 승인 응답:",
-      data
-    );
-
-
-    /* =================================================
-       승인 실패
-    ================================================= */
-
-    if (
-      !response.ok ||
-      !data.success
-    ) {
-
-      console.error(
-        "Toss 결제 승인 실패:",
-        data
-      );
-
-
-      alert(
-        data.message ||
-        "결제 승인에 실패했습니다."
-      );
-
-
-      return;
-
-    }
-
-
-    /* =================================================
-       승인 성공
-    ================================================= */
-
-    alert(
-      "단비에게 소중한 후원을 보내주셔서 감사합니다. ❤️"
-    );
-
-
-    /* =================================================
-       URL 정리
-    ================================================= */
-
-    window.history.replaceState(
-      {},
-      document.title,
-      window.location.pathname
-    );
-
-
-    /* =================================================
-       후원금액 갱신
-    ================================================= */
-
-    if (
-      typeof loadDonationTotal ===
-      "function"
-    ) {
-
-      loadDonationTotal();
-
-    }
-
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Toss 결제 승인 통신 오류:",
-      error
-    );
-
-
-    alert(
-      "결제 승인 처리 중 서버와 통신할 수 없습니다."
-    );
-
-  }
-
-}
 
 
 /* =========================================================
