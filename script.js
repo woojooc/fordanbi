@@ -195,9 +195,6 @@ const translations = {
     paymentButton:
       "❤️ 온라인 후원하기",
 
-    paymentNote:
-      "PayPal 및 네이버페이 결제를 이용할 수 있습니다.",
-
     bankTitle:
       "🏦 계좌 후원",
 
@@ -455,9 +452,6 @@ tossPaymentNote: "※ 한국 계정만 이용 가능합니다.",
     paymentButton:
       "❤️ Donate Online",
 
-    paymentNote:
-      "PayPal and Naver Pay are available.",
-
     bankTitle:
       "🏦 Bank Transfer",
 
@@ -714,9 +708,6 @@ tossPaymentNote: "※ Available for Korean accounts only.",
 
     paymentButton:
       "❤️ Faire un don en ligne",
-
-    paymentNote:
-      "PayPal et Naver Pay sont disponibles.",
 
     bankTitle:
       "🏦 Virement bancaire",
