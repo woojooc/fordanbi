@@ -2134,3 +2134,29 @@ body.paypal-modal-open {
   }
 
 }
+
+/* =========================================================
+   TOSS PAYMENT BUTTON
+========================================================= */
+
+#tossPaymentButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  line-height: 1.3;
+}
+
+#tossPaymentButton .toss-button-title {
+  display: block;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+#tossPaymentButton .toss-button-note {
+  display: block;
+  font-size: 0.78em;
+  font-weight: 400;
+  opacity: 0.8;
+}
