@@ -4,6 +4,12 @@
    PayPal + Naver Pay
 ========================================================= */
 
+/* =========================================================
+   TOSS PAYMENTS
+========================================================= */
+
+const TOSS_CLIENT_KEY =
+  "live_gck_DLJOpm5Qrld5GxdJB0qArPNdxbWn";
 
 /* =========================================================
    1. PAGE OPEN → ALWAYS TOP
@@ -284,7 +290,8 @@ const translations = {
       "숨을 헐떡이며 누워 지냄. 가바펜틴 진통제 복용"
 ,selectedDonationLabel: "선택한 후원금",
         paypalButton: "🌎 PayPal로 후원하기 (해외계정만가능) ",
-      naverPayButton: "🟢 NaverPay로 후원하기",
+      tossPaymentButton: "💳 카드/간편결제로 후원하기",
+tossPaymentNote: "※ 한국 계정만 이용 가능합니다.",
       recheckaccount:
   "후원 전 계좌정보를 다시 한번 확인해주세요.",
         bankName: "우리은행",
@@ -544,7 +551,8 @@ const translations = {
       selectedDonationLabel :"Selected Donation",
 
       paypalButton: "🌎 Donate via Paypal",
-      naverPayButton: "🟢 Donate via NaverPay",
+      tossPaymentButton: "💳 Donate by Card / Easy Payment",
+tossPaymentNote: "※ Available for Korean accounts only.",
       recheckaccount: "Please double-check the bank account information before making a donation.",
       bankName: "Woori Bank (South Korea)",
       accountCopy: "Copy Account Number"
@@ -804,7 +812,8 @@ const translations = {
       selectedDonationLabel:"Don sélectionné",
 
       paypalButton: "🌎 Faire un don via PayPal",
-      naverPayButton: "🟢 Faire un don via NaverPay",
+      tossPaymentButton: "💳 Faire un don par carte / paiement rapide",
+tossPaymentNote: "※ Disponible uniquement pour les comptes coréens.",
       recheckaccount:"Veuillez vérifier à nouveau les coordonnées bancaires avant de faire un don.",
       bankName: "Woori Bank (Corée du Sud)",
       accountCopy: "Copier le numéro de compte"
@@ -2878,12 +2887,194 @@ function initializeNaverPay() {
 /* =========================================================
    22. PAYMENT BUTTONS INITIALIZE
 ========================================================= */
+/* =========================================================
+   TOSS PAYMENTS
+   결제창 호출
+========================================================= */
+
+function initializeToss() {
+
+  const tossButton =
+    document.getElementById(
+      "tossPaymentButton"
+    );
+
+
+  if (!tossButton) {
+    return;
+  }
+
+
+  tossButton.addEventListener(
+    "click",
+    async function () {
+
+      try {
+
+        const selectedAmount =
+          Number(
+            document
+              .querySelector(
+                ".donation-amount-button.active"
+              )
+              ?.dataset.amount
+          );
+
+
+        if (
+          !Number.isInteger(
+            selectedAmount
+          ) ||
+          selectedAmount <= 0
+        ) {
+
+          alert(
+            "후원금액을 선택해주세요."
+          );
+
+          return;
+
+        }
+
+
+        tossButton.disabled =
+          true;
+
+
+        /*
+         * Toss Payments SDK
+         */
+
+        if (
+          typeof TossPayments ===
+          "undefined"
+        ) {
+
+          throw new Error(
+            "Toss Payments SDK를 불러오지 못했습니다."
+          );
+
+        }
+
+
+        const tossPayments =
+          TossPayments(
+            TOSS_CLIENT_KEY
+          );
+
+
+        const orderId =
+          "DANBI-" +
+          Date.now() +
+          "-" +
+          Math.random()
+            .toString(36)
+            .substring(
+              2,
+              8
+            )
+            .toUpperCase();
+
+
+        const language =
+          getCurrentLanguage();
+
+
+        let customerName =
+          "Danbi Supporter";
+
+
+        if (
+          language === "ko"
+        ) {
+
+          customerName =
+            "단비 후원자";
+
+        }
+
+
+        /*
+         * 결제창 호출
+         */
+
+        await tossPayments.requestPayment(
+          "카드",
+          {
+
+            amount:
+              selectedAmount,
+
+            orderId:
+              orderId,
+
+            orderName:
+              "단비 치료 후원",
+
+            customerName:
+              customerName,
+
+            successUrl:
+              window.location.origin +
+              window.location.pathname +
+              "?toss=success",
+
+            failUrl:
+              window.location.origin +
+              window.location.pathname +
+              "?toss=fail"
+
+          }
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Toss Payments Error:",
+          error
+        );
+
+
+        if (
+          error &&
+          error.code ===
+          "USER_CANCEL"
+        ) {
+
+          console.log(
+            "Toss 결제를 사용자가 취소했습니다."
+          );
+
+        }
+
+        else {
+
+          alert(
+            error.message ||
+            "결제를 시작할 수 없습니다."
+          );
+
+        }
+
+
+      } finally {
+
+        tossButton.disabled =
+          false;
+
+      }
+
+    }
+  );
+
+}
 
 function initializePayment() {
 
   initializePayPal();
 
-  initializeNaverPay();
+  initializeToss();
 
 }
 
