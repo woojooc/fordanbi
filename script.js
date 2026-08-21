@@ -3147,6 +3147,285 @@ function initializeToss() {
 
 }
 
+/* =========================================================
+   TOSS PAYMENTS V2
+   결제 완료 후 서버 승인
+========================================================= */
+
+async function handleTossPaymentResult() {
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const paymentKey =
+    params.get("paymentKey");
+
+  const orderId =
+    params.get("orderId");
+
+  const amount =
+    Number(
+      params.get("amount")
+    );
+
+
+  /* =====================================================
+     Toss 결제 결과가 아니면 종료
+  ===================================================== */
+
+  if (
+    !paymentKey &&
+    !orderId &&
+    !params.get("toss")
+  ) {
+
+    return;
+
+  }
+
+
+  /* =====================================================
+     결제 실패
+  ===================================================== */
+
+  if (
+    params.get("code") ||
+    params.get("message")
+  ) {
+
+    const code =
+      params.get("code");
+
+    const message =
+      params.get("message");
+
+
+    console.error(
+      "Toss 결제 실패:",
+      code,
+      message
+    );
+
+
+    alert(
+      message ||
+      "결제가 취소되었거나 실패했습니다."
+    );
+
+
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.pathname
+    );
+
+
+    return;
+
+  }
+
+
+  /* =====================================================
+     필수값 확인
+  ===================================================== */
+
+  if (
+    !paymentKey ||
+    !orderId ||
+    !Number.isInteger(amount) ||
+    amount <= 0
+  ) {
+
+    console.error(
+      "Toss 결제 결과값 오류:",
+      {
+        paymentKey,
+        orderId,
+        amount
+      }
+    );
+
+
+    alert(
+      "결제 결과를 확인할 수 없습니다."
+    );
+
+
+    return;
+
+  }
+
+
+  /* =====================================================
+     중복 승인 방지
+  ===================================================== */
+
+  const confirmKey =
+    "toss_confirmed_" +
+    orderId;
+
+
+  if (
+    sessionStorage.getItem(
+      confirmKey
+    )
+  ) {
+
+    console.log(
+      "이미 처리된 Toss 결제입니다:",
+      orderId
+    );
+
+    return;
+
+  }
+
+
+  /* =====================================================
+     서버 결제 승인
+  ===================================================== */
+
+  try {
+
+    console.log(
+      "Toss V2 결제 승인 요청:",
+      {
+        paymentKey,
+        orderId,
+        amount
+      }
+    );
+
+
+    const response =
+      await fetch(
+        "https://api.fordanbi.com/api/toss/confirm",
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              paymentKey:
+                paymentKey,
+
+              orderId:
+                orderId,
+
+              amount:
+                amount
+
+            })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    console.log(
+      "Toss V2 결제 승인 응답:",
+      data
+    );
+
+
+    /* =================================================
+       승인 실패
+    ================================================= */
+
+    if (
+      !response.ok ||
+      !data.success
+    ) {
+
+      console.error(
+        "Toss V2 결제 승인 실패:",
+        data
+      );
+
+
+      alert(
+        data.message ||
+        "결제 승인에 실패했습니다."
+      );
+
+
+      return;
+
+    }
+
+
+    /* =================================================
+       승인 성공
+    ================================================= */
+
+    sessionStorage.setItem(
+      confirmKey,
+      "true"
+    );
+
+
+    alert(
+      "단비에게 소중한 후원을 보내주셔서 감사합니다. ❤️"
+    );
+
+
+    /* =================================================
+       URL 정리
+    ================================================= */
+
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.pathname
+    );
+
+
+    /* =================================================
+       후원금액 갱신
+    ================================================= */
+
+    if (
+      typeof loadDonationTotal ===
+      "function"
+    ) {
+
+      loadDonationTotal();
+
+    }
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Toss V2 결제 승인 통신 오류:",
+      error
+    );
+
+
+    alert(
+      "결제 승인 처리 중 서버와 통신할 수 없습니다."
+    );
+
+  }
+
+}
 
 
 /* =========================================================
