@@ -3479,7 +3479,7 @@ function initializePayment() {
 
   initializePayPal();
 
-  initializeToss();
+  //initializeToss();
 
 }
 
@@ -3511,7 +3511,7 @@ function initializeDanbiWebsite() {
 
   /* Toss 결제 결과 */
 
-  handleTossPaymentResult();
+  //handleTossPaymentResult();
 
   /* 저장된 언어 */
 
