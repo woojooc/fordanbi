@@ -2451,16 +2451,54 @@ function initializePayPal() {
 
               if (!result.success) {
 
-                throw new Error(
-                  result.message ||
-                  "결제 승인에 실패했습니다."
-                );
+  throw new Error(
+    result.message ||
+    "결제 승인에 실패했습니다."
+  );
 
-              }
+}
 
 
-              loading.textContent =
-                "후원이 완료되었습니다. ❤️";
+/* =================================================
+   Google Analytics - PayPal 결제 완료
+================================================= */
+
+if (typeof gtag === "function") {
+
+  gtag("event", "purchase", {
+
+    transaction_id:
+      paypalData.orderID,
+
+    value:
+      amountUSD,
+
+    currency:
+      "USD",
+
+    items: [
+      {
+        item_id:
+          "DANBI-DONATION",
+
+        item_name:
+          "Danbi Treatment Donation",
+
+        price:
+          amountUSD,
+
+        quantity:
+          1
+      }
+    ]
+
+  });
+
+}
+
+
+loading.textContent =
+  "후원이 완료되었습니다. ❤️";
 
 
               setTimeout(
@@ -2580,7 +2618,12 @@ function initializePayPal() {
       event.preventDefault();
       event.stopPropagation();
 
-
+gtag("event", "begin_checkout", {
+  currency: "USD",
+  value: paypalDonationAmounts[selectedDonationAmountKRW] || 0,
+  donation_amount_krw: selectedDonationAmountKRW,
+  payment_method: "paypal"
+});
       /*
          현재 페이지 스크롤 위치 저장
       */
